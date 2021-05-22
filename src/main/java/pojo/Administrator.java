@@ -3,7 +3,6 @@ package pojo;
 /**
  * <p><b>类名：</b>{@code Administrator}</p>
  * <p><b>功能：</b></p><br>管理员的java bean
- * <p><b>方法：</b></p>
  *
  * @author 60rzvvbj
  * @date 2021/5/22
