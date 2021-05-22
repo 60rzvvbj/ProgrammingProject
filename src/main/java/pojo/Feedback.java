@@ -9,10 +9,13 @@ package pojo;
  */
 
 public class Feedback {
+    private String username; //反馈人
     private String accountNumber; //反馈人学号
     private int type;   //1是普通反馈，2是举报用户
     private String content; //反馈内容
     private long time; //反馈时间
+    private int feedbackID;
+
     public Feedback(){
     }
 
@@ -48,6 +51,10 @@ public class Feedback {
     public void setTime() {
         this.time = System.currentTimeMillis();
     }
+
+    public void setFeedbackID(int feedbackID) { this.feedbackID = feedbackID; }
+
+    public int getFeedbackID() { return feedbackID; }
 
     @Override
     public String toString() {
