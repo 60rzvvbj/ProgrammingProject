@@ -10,24 +10,42 @@ package pojo;
 import java.util.Date;
 
 public class PairingRequest {
-    private int studentNumber;
+    private String  studentNumber;
     private String request;
     private Date startTime;
-    private int recipientNumber;
-    public PairingRequest(){}
-    //创建一个两个参数的构造方法，获取学生的学号和发起配对的时间
-    public PairingRequest(int studentNumber,Date startTime){
-        this.studentNumber=studentNumber;
-        this.startTime=startTime;
+    private String  recipientNumber;
+    private int ID=1;//设置一个配对ID，用来记录是第几个发起配对，初始值为1。
+    public PairingRequest(){
+        //每次发起一次配对，配对ID+1
+        this.ID++;
     }
-    public int getStudentNumber(){
+    //创建一个两个参数的构造方法，创建一个有配对要求的学生
+    public PairingRequest(String  studentNumber,String request){
+        this.studentNumber=studentNumber;
+        this.request=request;
+        //每次发起一次配对，配对ID+1
+        this.ID++;
+    }
+    public void setStudentNumber(String studentNumber){
+        this.studentNumber= studentNumber;
+    }
+    public String  getStudentNumber(){
         return studentNumber;
     }
-    public int getRecipientNumber(){
+    public void setRecipientNumber(String recipientNumber){
+        this.recipientNumber= recipientNumber;
+    }
+    public String  getRecipientNumber(){
         return recipientNumber;
+    }
+    public void setStartTime(Date startTime){
+        this.startTime= startTime;
     }
     public Date getStartTime(){
         return startTime;
+    }
+    public void setRequest(String request){
+        this.request=request;
     }
     public String getRequest(){
         return request;
