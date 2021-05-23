@@ -14,7 +14,7 @@ public class Feedback {
     private int type;   //1是普通反馈，2是举报用户
     private String content; //反馈内容
     private long time; //反馈时间
-    private int feedbackID;
+    private String feedbackID;
 
     public Feedback(){
     }
@@ -52,9 +52,9 @@ public class Feedback {
         this.time = System.currentTimeMillis();
     }
 
-    public void setFeedbackID(int feedbackID) { this.feedbackID = feedbackID; }
+    public void setFeedbackID(String feedbackID) { this.feedbackID = feedbackID; }
 
-    public int getFeedbackID() { return feedbackID; }
+    public String getFeedbackID() { return feedbackID; }
 
     @Override
     public String toString() {
