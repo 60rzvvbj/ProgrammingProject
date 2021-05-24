@@ -15,8 +15,7 @@ public class PairingRequest {
     private Date startTime;
     private String  recipientNumber;
     private String ID;//设置一个配对ID，用来记录是第几个发起配对
-    public PairingRequest(){
-    }
+    public PairingRequest(){}
     //创建一个两个参数的构造方法，创建一个有配对要求的学生
     public PairingRequest(String  studentNumber,String request){
         this.studentNumber=studentNumber;
