@@ -10,7 +10,7 @@ package pojo;
 import java.util.Date;
 
 public class PairingRequest {
-    private String  studentNumber;
+    private String studentNumber;
     private String request;
     private Date startTime;
     private String  recipientNumber;
