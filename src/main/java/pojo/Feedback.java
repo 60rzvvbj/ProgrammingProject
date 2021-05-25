@@ -34,15 +34,21 @@ public class Feedback {
         this.accountNumber = accountNumber;
     }
 
-    public int getType() { return type; }
+    public int getType() {
+        return type;
+    }
 
-    public void setType(int type) { this.type = type; }
+    public void setType(int type) {
+        this.type = type;
+    }
 
     public String getContent() {
         return content;
     }
 
-    public void setContent(String content) { this.content = content; }
+    public void setContent(String content) {
+        this.content = content;
+    }
 
     public long getTime() {
         return time;
@@ -52,9 +58,13 @@ public class Feedback {
         this.time = System.currentTimeMillis();
     }
 
-    public void setFeedbackID(String feedbackID) { this.feedbackID = feedbackID; }
+    public void setFeedbackID(String feedbackID) {
+        this.feedbackID = feedbackID;
+    }
 
-    public String getFeedbackID() { return feedbackID; }
+    public String getFeedbackID() {
+        return feedbackID;
+    }
 
     @Override
     public String toString() {
