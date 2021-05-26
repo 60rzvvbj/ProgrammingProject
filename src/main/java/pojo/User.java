@@ -9,6 +9,7 @@ package pojo;
  */
 
 import java.util.Date;
+import java.util.List;
 
 public class User {
     private String username;
@@ -16,9 +17,10 @@ public class User {
     private String sex;
     private String studentNumber;
     private int age;
-    private int height;
-    private int weight;
-
+    private double height;
+    private double weight;
+    private List<User> list;//好友列表
+    private int status;//账号状态，0为异常，1为正常
     public User() {
     }
 
@@ -60,19 +62,19 @@ public class User {
         return sex;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(double height) {
         this.height = height;
     }
 
-    public int getHeight() {
+    public double getHeight() {
         return height;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(double weight) {
         this.weight = weight;
     }
 
-    public int getWeight() {
+    public double getWeight() {
         return weight;
     }
 
@@ -84,6 +86,21 @@ public class User {
         return age;
     }
 
+    public void setList(List<User> list) {
+        this.list =list;
+    }
+
+    public List<User> getList() {
+        return list;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public int getStatus() {
+        return status;
+    }
     @Override
     public String toString() {
         return "User{" +
