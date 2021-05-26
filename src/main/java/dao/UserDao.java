@@ -13,6 +13,7 @@ import java.util.List;
 public interface UserDao {
     boolean addUser(User user);
 
+
     boolean modifyUser(User user);
 
     List<User> queryAllUser();

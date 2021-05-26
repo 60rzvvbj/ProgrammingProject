@@ -7,51 +7,64 @@ package pojo;
  * @author 24LJ
  * @date 2021/5/22
  */
+
 import java.util.Date;
 
 public class PairingRequest {
     private String studentNumber;
     private String request;
-    private Date startTime;
-    private String  recipientNumber;
+    private long startTime;
+    private String recipientNumber;
     private String ID;//设置一个配对ID，用来记录是第几个发起配对
-    public PairingRequest(){}
+
+    public PairingRequest() {
+    }
+
     //创建一个两个参数的构造方法，创建一个有配对要求的学生
-    public PairingRequest(String  studentNumber,String request){
-        this.studentNumber=studentNumber;
-        this.request=request;
+    public PairingRequest(String studentNumber, String request) {
+        this.studentNumber = studentNumber;
+        this.request = request;
     }
-    public void setStudentNumber(String studentNumber){
-        this.studentNumber= studentNumber;
+
+    public void setStudentNumber(String studentNumber) {
+        this.studentNumber = studentNumber;
     }
-    public String  getStudentNumber(){
+
+    public String getStudentNumber() {
         return studentNumber;
     }
-    public void setRecipientNumber(String recipientNumber){
-        this.recipientNumber= recipientNumber;
+
+    public void setRecipientNumber(String recipientNumber) {
+        this.recipientNumber = recipientNumber;
     }
-    public String  getRecipientNumber(){
+
+    public String getRecipientNumber() {
         return recipientNumber;
     }
-    public void setStartTime(Date startTime){
-        this.startTime= startTime;
+
+    public void setStartTime(long startTime) {
+        this.startTime = System.currentTimeMillis();
     }
-    public Date getStartTime(){
+
+    public long getStartTime() {
         return startTime;
     }
-    public void setRequest(String request){
-        this.request=request;
+
+    public void setRequest(String request) {
+        this.request = request;
     }
-    public String getRequest(){
+
+    public String getRequest() {
         return request;
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         return "ParingRequest{" +
                 "studentNumber='" + studentNumber + '\'' +
-                ", request='" + request + '\''+
+                ", request='" + request + '\'' +
                 "startTime='" + startTime + '\'' +
-                "recipientNumber ='" + recipientNumber + '\''+
+                "recipientNumber ='" + recipientNumber + '\'' +
                 '}';
     }
 }
