@@ -6,7 +6,7 @@ gdufcp;
 -- 用户
 create table user
 (
-    sno      int primary key auto_increment,
+    sno varchar(20) primary key,
     username varchar(20),
     password varchar(20),
     sex      varchar(2),

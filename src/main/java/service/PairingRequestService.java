@@ -37,4 +37,28 @@ public interface PairingRequestService {
      * @date 2021/5/25
      */
     List<PairingRequest> queryUserPairing(String studentNumber);
+
+    /**
+     * <p><b>方法名：</b>{@code removePairingRequest}</p>
+     * <p><b>功能：</b></p><br>删除配对
+     *
+     * @param studentNumber 学号
+     * @param ID            配对ID
+     * @return 是否成功
+     * @author 60rzvvbj
+     * @date 2021/5/27
+     */
+    boolean removePairingRequest(String studentNumber, String ID);
+
+    /**
+     * <p><b>方法名：</b>{@code acceptPairing}</p>
+     * <p><b>功能：</b></p><br>接受配对
+     *
+     * @param acceptNumber 接收人学号
+     * @param ID           配对ID
+     * @return 是否成功
+     * @author 60rzvvbj
+     * @date 2021/5/27
+     */
+    boolean acceptPairing(String acceptNumber, String ID);
 }
