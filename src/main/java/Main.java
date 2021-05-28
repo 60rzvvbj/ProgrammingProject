@@ -6,4 +6,5 @@ public class Main {
         AdministratorDao administratorDao = DaoFactory.getAdministratorDao();
         System.out.println(administratorDao.queryAllAdministrator());
     }
+
 }

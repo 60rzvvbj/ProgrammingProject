@@ -8,7 +8,6 @@ package pojo;
  * @date 2021/5/22
  */
 
-import java.util.Date;
 
 public class PairingRequest {
     private String studentNumber;
