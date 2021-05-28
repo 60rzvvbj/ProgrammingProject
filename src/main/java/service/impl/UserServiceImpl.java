@@ -21,7 +21,6 @@ public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
     private final List<User> list;
-    User user = new User();
 
     public UserServiceImpl() {
         this.userDao = DaoFactory.getUserDao();
@@ -30,6 +29,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean register(String studentNumber, String password, String username) { //注册
+        User user = new User();
         for (User i : list) {
             if (studentNumber.equals(i.getStudentNumber())) {
                 return false;
