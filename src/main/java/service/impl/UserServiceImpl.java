@@ -1,24 +1,16 @@
 package service.impl;
 
-/**
- * <p><b>类名：</b>{@code UserServicelmpl}</p>
- * <p><b>功能：</b></p><br>
- *
- * @author iamcht
- * @date 2021/5/28
- */
-
 import commom.factory.DaoFactory;
 import dao.UserDao;
 import pojo.User;
 import service.UserService;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 public class UserServiceImpl implements UserService {
+
     private final UserDao userDao;
     private final List<User> list;
     User user = new User();
@@ -82,8 +74,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> queryUser(String message) { // 查询用户
         List<User> res = new ArrayList<>(); //
-        char[] p = message.toCharArray(); //KMP算法
-        int n = p.length;
+        char[] p = (message + " ").toCharArray(); //KMP算法
+        int n = p.length - 1;
         int[] ne = new int[n];
         ne[0] = -1;
         for (int i = 1, j = -1; i < n; i++) { //求next数组

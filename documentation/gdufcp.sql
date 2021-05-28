@@ -13,9 +13,10 @@ create table user
     height   double,
     weight   double,
     status   int,
-    check (sex in ('男', '女'))
+    check (sex in ('男', '女', '?'))
 );
 
+drop table user;
 -- 好友列表
 create table friendList
 (
@@ -65,3 +66,7 @@ create table admin
 
 show
 tables;
+
+insert into user(sno, username, password, sex) values('191543132', 'ycx', '123', '?');
+insert into user(sno, username, password) values('191543110', 'cht', '123');
+insert into user(sno, username, password) values('191543120', 'lj', '123');
