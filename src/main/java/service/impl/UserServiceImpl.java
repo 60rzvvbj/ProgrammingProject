@@ -73,14 +73,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> queryUser(String message) { // 查询用户
-        List<User> res = new ArrayList<>();
-        int lenp = message.length();
-        char[] p = new char[lenp + 1]; //KMP算法
-        p = message.toCharArray();
-        int[] ne = new int[lenp + 1];
+        List<User> res = new ArrayList<>(); //
+        char[] p = message.toCharArray(); //KMP算法
+        int n = p.length;
+        int[] ne = new int[n];
         ne[0] = -1;
-        for (int i = 1, j = -1; i < lenp; i++) { //求next数组
-            while (j >= 0 && p[j + 1] != p[i]) {
+        for (int i = 1, j = -1; i < n; i++) { //求next数组
+            while (j >= 0 && (j + 1) < n && p[j + 1] != p[i]) {
                 j = ne[j];
             }
             if (p[j + 1] == p[i]) j++;
@@ -93,7 +92,7 @@ public class UserServiceImpl implements UserService {
             char u[] = username.toCharArray();
             int lenu = u.length;
             for (int i = 0, j = -1; i < lenu; i++) {
-                while (j != -1 && u[i] != p[j + 1]) {
+                while (j != -1 && (j + 1) < n && u[i] != p[j + 1]) {
                     j = ne[j];
                 }
                 if (u[i] == p[j + 1]) j++;
@@ -107,7 +106,7 @@ public class UserServiceImpl implements UserService {
             char s[] = studentNumber.toCharArray();
             int lenm = s.length;
             for (int i = 0, j = -1; i < lenm; i++) {
-                while (j != -1 && s[i] != p[j + 1]) {
+                while (j != -1 && (j + 1) < n && s[i] != p[j + 1]) {
                     j = ne[j];
                 }
                 if (s[i] == p[j + 1]) j++;
