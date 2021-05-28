@@ -1,5 +1,12 @@
 package service.impl;
-
+/**
+ * <p><b>方法名：</b>{@code UserServicelmpl}</p>
+ * <p><b>功能：</b></p><br>
+ *
+ * @return 是否成功
+ * @author iamcht
+ * @date 2021/5/28
+ */
 import commom.factory.DaoFactory;
 import dao.UserDao;
 import pojo.User;
@@ -85,7 +92,6 @@ public class UserServiceImpl implements UserService {
         }
         /////
         for (User u : list) { //遍历所有的用户
-            int flag = 0; //标记某个用户是不是username就已经匹配了
             String p = u.getUsername();
             int n = p.length();
             char[] s = new char[n + 1];
@@ -96,25 +102,12 @@ public class UserServiceImpl implements UserService {
                 while (j != -1 && s[i] != k[j + 1]) j = ne[j];
                 if (s[i] == k[j + 1]) j++;
                 if (j == m - 1) {
-                    flag = 1;
                     res.add(u);
                     break;
                 }
             }
-            if(flag == 1) continue;
-            String q = u.getStudentNumber();
-            int l = q.length();
-            char[] t = new char[l + 1];
-            for(int i = 0; i < l; i++){
-                t[i] = q.charAt(i);
-            }
-            for (int i = 0, j = -1; i < l; i++) {
-                while (j != -1 && t[i] != k[j + 1]) j = ne[j];
-                if (t[i] == k[j + 1]) j++;
-                if (j == m - 1) {
-                    res.add(u);
-                    break;
-                }
+            if(u.getStudentNumber().equals(message)){
+                res.add(u);
             }
         }
         return res;
