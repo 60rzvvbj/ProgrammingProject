@@ -95,7 +95,7 @@ public class UserServiceImpl implements UserService {
                 while (j != -1 && (j + 1) < n && u[i] != p[j + 1]) {
                     j = ne[j];
                 }
-                if (u[i] == p[j + 1]) j++;
+                if (u[i] == p[j + 1] && (j + 1) < n) j++;
                 if (j == (lenu - 1)) {
                     flag = 1;
                     res.add(k);
@@ -109,7 +109,7 @@ public class UserServiceImpl implements UserService {
                 while (j != -1 && (j + 1) < n && s[i] != p[j + 1]) {
                     j = ne[j];
                 }
-                if (s[i] == p[j + 1]) j++;
+                if (s[i] == p[j + 1] && (j + 1) < n) j++;
                 if (j == (lenm - 1)) {
                     res.add(k);
                     break;
