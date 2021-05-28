@@ -7,6 +7,7 @@ package service.impl;
  * @author iamcht
  * @date 2021/5/28
  */
+
 import commom.factory.DaoFactory;
 import dao.UserDao;
 import pojo.User;
@@ -79,6 +80,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User queryUserByStudentNumber(String studentNumber) {
+        for (User i : list) {
+            if (i.getStudentNumber().equals(studentNumber)) {
+                return i;
+            }
+        }
+        return null;
+    }
+
+    @Override
     public List<User> queryUser(String message) { // 查询用户，运用KMP算法
         List<User> res = new ArrayList<>(); //创建一个集合，存放符合条件的用户
         int m = message.length();
@@ -94,7 +105,7 @@ public class UserServiceImpl implements UserService {
             String p = u.getUsername();
             int n = p.length();
             char[] s = new char[n + 1];
-            for(int i = 0; i < n; i++){
+            for (int i = 0; i < n; i++) {
                 s[i] = p.charAt(i);
             }
             for (int i = 0, j = -1; i < n; i++) {
@@ -105,7 +116,7 @@ public class UserServiceImpl implements UserService {
                     break;
                 }
             }
-            if(u.getStudentNumber().equals(message)){
+            if (u.getStudentNumber().equals(message)) {
                 res.add(u);
             }
         }
@@ -114,8 +125,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> queryFriendList(String studentNumber) { //查询某用户的好友列表
-        for(User i: list){
-            if(i.getStudentNumber().equals(studentNumber)){
+        for (User i : list) {
+            if (i.getStudentNumber().equals(studentNumber)) {
                 return i.getList();
             }
         }
