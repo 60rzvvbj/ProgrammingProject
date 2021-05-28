@@ -14,13 +14,14 @@ import java.util.List;
 public class User {
     private String username;
     private String password;
-    private String sex;
+    private String sex = "female";
     private String studentNumber;
     private int age;
     private double height;
     private double weight;
-    private List<User> list;//好友列表
-    private int status;//账号状态，0为异常，1为正常
+    private List<String> list;//好友列表
+    private int status = 1;//账号状态，0为异常，1为正常
+
     public User() {
     }
 
@@ -86,11 +87,11 @@ public class User {
         return age;
     }
 
-    public void setList(List<User> list) {
-        this.list =list;
+    public void setList(List<String> list) {
+        this.list = list;
     }
 
-    public List<User> getList() {
+    public List<String> getList() {
         return list;
     }
 
@@ -101,13 +102,15 @@ public class User {
     public int getStatus() {
         return status;
     }
+
     @Override
     public String toString() {
         return "User{" +
                 "studentNumber='" + studentNumber + '\'' +
                 ", username='" + username + '\'' +
                 "password='" + password + '\'' +
-                "sex ='" + sex + '\'' +
+                "sex ='" + sex + '\'' + "height ='" + height + '\'' +
+                "weight ='" + weight + '\'' + "status ='" + status + '\'' +
                 '}';
     }
 }
