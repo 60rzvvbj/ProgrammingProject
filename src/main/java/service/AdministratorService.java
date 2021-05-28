@@ -34,4 +34,14 @@ public interface AdministratorService {
      * @date 2021/5/27
      */
     boolean unlock(String studentNumber);
+
+    /**
+     * <p><b>方法名：</b>{@code removeUser}</p>
+     * <p><b>功能：</b></p><br>删除用户
+     *
+     * @param studentNumber 学号
+     * @author 60rzvvbj
+     * @date 2021/5/28
+     */
+    boolean removeUser(String studentNumber);
 }

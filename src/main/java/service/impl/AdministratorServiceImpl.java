@@ -17,4 +17,9 @@ public class AdministratorServiceImpl implements AdministratorService {
     public boolean unlock(String studentNumber) {
         return false;
     }
+
+    @Override
+    public boolean removeUser(String studentNumber) {
+        return false;
+    }
 }
