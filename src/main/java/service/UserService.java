@@ -58,6 +58,17 @@ public interface UserService {
     boolean editInformation(String studentNumber, Map<String, Object> map);
 
     /**
+     * <p><b>方法名：</b>{@code queryUserByStudentNumber}</p>
+     * <p><b>功能：</b></p><br>通过学号查找用户
+     *
+     * @param studentNumber 学号
+     * @return 用户对象
+     * @author 60rzvvbj
+     * @date 2021/5/28
+     */
+    User queryUserByStudentNumber(String studentNumber);
+
+    /**
      * <p><b>方法名：</b>{@code queryUser}</p>
      * <p><b>功能：</b></p><br>通过学号或用户名查找用户
      *
