@@ -25,12 +25,45 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean addUser(User user) {
-        return false;
+        boolean res;
+        try {
+            connection = JDBCUtil.getConnection();
+            String sql = "insert into user(sno, username, password) values(?, ?, ?)";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, user.getStudentNumber());
+            preparedStatement.setString(2, user.getUsername());
+            preparedStatement.setString(3, user.getPassword());
+            int i = preparedStatement.executeUpdate();
+            res = i > 0;
+        } catch (Exception e) {
+            res = false;
+        } finally {
+            close();
+        }
+        return res;
     }
 
     @Override
     public boolean modifyUser(User user) {
         return false;
+    }
+
+    @Override
+    public boolean removeUser(String sno) {
+        boolean res;
+        try {
+            connection = JDBCUtil.getConnection();
+            String sql = "delete from user where sno = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, sno);
+            int i = preparedStatement.executeUpdate();
+            res = i > 0;
+        } catch (Exception e) {
+            res = false;
+        } finally {
+            close();
+        }
+        return res;
     }
 
     @Override

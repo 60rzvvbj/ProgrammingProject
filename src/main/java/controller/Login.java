@@ -16,8 +16,6 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        System.out.println("!!!");
-
         // 防止乱码
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
@@ -40,7 +38,7 @@ public class Login extends HttpServlet {
 
         boolean status = userService.login(sno, pwd);
 
-        resp.getWriter().write("{\"status\": \"" + status + "\"}");
+        resp.getWriter().write("{\"status\": " + status + "}");
         resp.getWriter().close();
     }
 }

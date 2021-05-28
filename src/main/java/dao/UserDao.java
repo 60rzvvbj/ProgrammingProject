@@ -15,5 +15,7 @@ public interface UserDao {
 
     boolean modifyUser(User user);
 
+    boolean removeUser(String sno);
+
     List<User> queryAllUser();
 }
