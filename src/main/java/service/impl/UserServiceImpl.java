@@ -74,44 +74,45 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> queryUser(String message) { // 查询用户
         List<User> res = new ArrayList<>(); //
-        char[] p = message.toCharArray(); //KMP算法
-        int n = p.length;
-        int[] ne = new int[n];
+        int m = message.length();
+        int[] ne = new int[m];
         ne[0] = -1;
-        for (int i = 1, j = -1; i < n; i++) { //求next数组
-            while (j >= 0 && (j + 1) < n && p[j + 1] != p[i]) {
-                j = ne[j];
-            }
-            if (p[j + 1] == p[i]) j++;
+        char[] k = message.toCharArray();
+        for (int i = 1, j = -1; i < m; i++) {
+            while (j >= 0 && k[j + 1] != k[i]) j = ne[j];
+            if (k[j + 1] == k[i]) j++;
             ne[i] = j;
         }
-        for (User k : list) { //遍历所有的用户
+        /////
+        for (User u : list) { //遍历所有的用户
             int flag = 0; //标记某个用户是不是username就已经匹配了
-            String username = k.getUsername();
-            String studentNumber = k.getStudentNumber();
-            char u[] = username.toCharArray();
-            int lenu = u.length;
-            for (int i = 0, j = -1; i < lenu; i++) {
-                while (j != -1 && (j + 1) < n && u[i] != p[j + 1]) {
-                    j = ne[j];
-                }
-                if (u[i] == p[j + 1] && (j + 1) < n) j++;
-                if (j == (lenu - 1)) {
+            String p = u.getUsername();
+            int n = p.length();
+            char[] s = new char[n + 1];
+            for(int i = 0; i < n; i++){
+                s[i] = p.charAt(i);
+            }
+            for (int i = 0, j = -1; i < n; i++) {
+                while (j != -1 && s[i] != k[j + 1]) j = ne[j];
+                if (s[i] == k[j + 1]) j++;
+                if (j == m - 1) {
                     flag = 1;
-                    res.add(k);
+                    res.add(u);
                     break;
                 }
             }
             if(flag == 1) continue;
-            char s[] = studentNumber.toCharArray();
-            int lenm = s.length;
-            for (int i = 0, j = -1; i < lenm; i++) {
-                while (j != -1 && (j + 1) < n && s[i] != p[j + 1]) {
-                    j = ne[j];
-                }
-                if (s[i] == p[j + 1] && (j + 1) < n) j++;
-                if (j == (lenm - 1)) {
-                    res.add(k);
+            String q = u.getStudentNumber();
+            int l = q.length();
+            char[] t = new char[l + 1];
+            for(int i = 0; i < l; i++){
+                t[i] = q.charAt(i);
+            }
+            for (int i = 0, j = -1; i < l; i++) {
+                while (j != -1 && t[i] != k[j + 1]) j = ne[j];
+                if (t[i] == k[j + 1]) j++;
+                if (j == m - 1) {
+                    res.add(u);
                     break;
                 }
             }
