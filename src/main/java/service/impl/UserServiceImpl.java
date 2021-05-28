@@ -79,18 +79,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> queryUser(String message) { // 查询用户
-        List<User> res = new ArrayList<>(); //
+    public List<User> queryUser(String message) { // 查询用户，运用KMP算法
+        List<User> res = new ArrayList<>(); //创建一个集合，存放符合条件的用户
         int m = message.length();
         int[] ne = new int[m];
         ne[0] = -1;
         char[] k = message.toCharArray();
-        for (int i = 1, j = -1; i < m; i++) {
+        for (int i = 1, j = -1; i < m; i++) { //求next数组
             while (j >= 0 && k[j + 1] != k[i]) j = ne[j];
             if (k[j + 1] == k[i]) j++;
             ne[i] = j;
         }
-        /////
         for (User u : list) { //遍历所有的用户
             String p = u.getUsername();
             int n = p.length();
