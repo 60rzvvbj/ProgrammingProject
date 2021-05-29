@@ -1,4 +1,5 @@
 package pojo;
+
 /**
  * <p><b>类名：</b>{@code PairingRequest}</p>
  * <p><b>功能：</b></p><br>配对的java bean
@@ -63,7 +64,7 @@ public class PairingRequest {
                 "studentNumber='" + studentNumber + '\'' +
                 ", request='" + request + '\'' +
                 "startTime='" + startTime + '\'' +
-                "recipientNumber ='" + recipientNumber + '\'' +
+                "recipientNumber ='" + recipientNumber + '\'' + " ID='" + ID + '\'' +
                 '}';
     }
 }
