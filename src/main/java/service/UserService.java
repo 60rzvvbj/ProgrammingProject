@@ -88,5 +88,5 @@ public interface UserService {
      * @author 60rzvvbj
      * @date 2021/5/24
      */
-    List<String> queryFriendList(String studentNumber);
+    List<User> queryFriendList(String studentNumber);
 }
