@@ -19,7 +19,7 @@ public class User {
     private int age;
     private double height;
     private double weight;
-    private List<String> list;//好友列表
+    private List<String> friendList;//好友列表
     private int status = 1;//账号状态，0为异常，1为正常
 
     public User() {
@@ -88,11 +88,11 @@ public class User {
     }
 
     public void setList(List<String> list) {
-        this.list = list;
+        this.friendList = list;
     }
 
     public List<String> getList() {
-        return list;
+        return friendList;
     }
 
     public void setStatus(int status) {
@@ -111,6 +111,7 @@ public class User {
                 "password='" + password + '\'' +
                 "sex ='" + sex + '\'' + "height ='" + height + '\'' +
                 "weight ='" + weight + '\'' + "status ='" + status + '\'' +
+                "friendList ='" + friendList + '\'' +
                 '}';
     }
 }
