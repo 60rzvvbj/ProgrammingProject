@@ -28,11 +28,15 @@ public class UserDaoImpl implements UserDao {
         boolean res;
         try {
             connection = JDBCUtil.getConnection();
-            String sql = "insert into user(sno, username, password) values(?, ?, ?)";
+            String sql = "insert into user(sno, username, password, sex, height, weight, status) values(?, ?, ?, ?, ?, ?, ?)";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, user.getStudentNumber());
             preparedStatement.setString(2, user.getUsername());
             preparedStatement.setString(3, user.getPassword());
+            preparedStatement.setString(4, user.getSex());
+            preparedStatement.setDouble(5, user.getHeight());
+            preparedStatement.setDouble(6, user.getWeight());
+            preparedStatement.setInt(7, user.getStatus());
             int i = preparedStatement.executeUpdate();
             res = i > 0;
         } catch (Exception e) {
@@ -45,7 +49,26 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean modifyUser(User user) {
-        return false;
+        boolean res;
+        try {
+            connection = JDBCUtil.getConnection();
+            String sql = "insert into user(username, password, sex, height, weight, status) values(?, ?, ?, ?, ?, ?) where sno = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, user.getUsername());
+            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setString(3, user.getSex());
+            preparedStatement.setDouble(4, user.getHeight());
+            preparedStatement.setDouble(5, user.getWeight());
+            preparedStatement.setInt(6, user.getStatus());
+            preparedStatement.setString(7, user.getStudentNumber());
+            int i = preparedStatement.executeUpdate();
+            res = i > 0;
+        } catch (Exception e) {
+            res = false;
+        } finally {
+            close();
+        }
+        return res;
     }
 
     @Override
@@ -85,11 +108,40 @@ public class UserDaoImpl implements UserDao {
                 user.setHeight(resultSet.getDouble("height"));
                 user.setWeight(resultSet.getDouble("weight"));
                 user.setStatus(resultSet.getInt("status"));
+                user.setList(queryFriend(user.getStudentNumber()));
                 res.add(user);
             }
         } catch (Exception e) {
         } finally {
             close();
+        }
+        return res;
+    }
+
+    // 查询所有好友学号
+    private List<String> queryFriend(String studentNumber) {
+        List<String> res = null;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = JDBCUtil.getConnection();
+            String sql = "\n" +
+                    "select if(user1no = ?, user2no, user1no) as sno\n" +
+                    "from friendlist\n" +
+                    "where user1no = ? or user2no = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, studentNumber);
+            preparedStatement.setString(2, studentNumber);
+            preparedStatement.setString(3, studentNumber);
+            resultSet = preparedStatement.executeQuery();
+            res = new LinkedList<>();
+            while (resultSet.next()) {
+                res.add(resultSet.getString("sno"));
+            }
+        } catch (Exception e) {
+        } finally {
+            JDBCUtil.close(resultSet, preparedStatement, connection);
         }
         return res;
     }

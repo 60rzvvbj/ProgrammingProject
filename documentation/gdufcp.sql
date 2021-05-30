@@ -70,3 +70,13 @@ tables;
 insert into user(sno, username, password, sex) values('191543132', 'ycx', '123', '?');
 insert into user(sno, username, password) values('191543110', 'cht', '123');
 insert into user(sno, username, password) values('191543120', 'lj', '123');
+insert into user(sno, username, password) values('191543105', 'lzx', '123');
+
+insert into friendlist(user1no, user2no) values('191543105', '191543132');
+insert into friendlist(user1no, user2no) values('191543110', '191543132');
+insert into friendlist(user1no, user2no) values('191543120', '191543132');
+insert into friendlist(user1no, user2no) values('191543110', '191543120');
+
+select if(user1no = '191543132', user2no, user1no) as sno
+from friendlist
+where user1no = '191543132' or user2no = '191543132';
