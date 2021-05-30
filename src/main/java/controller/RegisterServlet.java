@@ -1,5 +1,8 @@
 package controller;
 
+import commom.factory.ServiceFactory;
+import service.UserService;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +14,15 @@ import java.io.IOException;
 public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        String
+        UserService userService = ServiceFactory.getUserService();
+
+        String sno = req.getParameter("sno");
+        String username = req.getParameter("username");
+        String pwd = req.getParameter("pwd");
+
+        boolean status = userService.register(sno, pwd, username);
+
+        resp.getWriter().write("{\"status\": " + status + "}");
+        resp.getWriter().close();
     }
 }
