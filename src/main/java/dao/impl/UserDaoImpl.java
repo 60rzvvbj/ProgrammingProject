@@ -108,7 +108,7 @@ public class UserDaoImpl implements UserDao {
                 user.setHeight(resultSet.getDouble("height"));
                 user.setWeight(resultSet.getDouble("weight"));
                 user.setStatus(resultSet.getInt("status"));
-                user.setList(queryFriend(user.getStudentNumber()));
+                user.setFriendList(queryFriend(user.getStudentNumber()));
                 res.add(user);
             }
         } catch (Exception e) {

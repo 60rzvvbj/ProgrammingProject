@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
 
         Map<String, Object> data = new HashMap<>();
         data.put("status", status);
-        
+
         resp.getWriter().write(JsonUtil.mapToJson(data));
         resp.getWriter().close();
     }
