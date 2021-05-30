@@ -87,11 +87,11 @@ public class User {
         return age;
     }
 
-    public void setList(List<String> list) {
+    public void setFriendList(List<String> list) {
         this.friendList = list;
     }
 
-    public List<String> getList() {
+    public List<String> getFriendList() {
         return friendList;
     }
 
