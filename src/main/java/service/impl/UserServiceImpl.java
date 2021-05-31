@@ -5,7 +5,7 @@ package service.impl;
  *
  * @return 是否成功
  * @author iamcht
- * @date 2021/5/28
+ * @date 2021/5/31
  */
 
 import commom.factory.DaoFactory;
@@ -30,6 +30,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean register(String studentNumber, String password, String username) { //注册
         User user = new User();
+        if(studentNumber.equals(null) || password.equals(null) || username.equals(null)){
+            return false;
+        }
         for (User i : list) {
             if (studentNumber.equals(i.getStudentNumber())) {
                 return false;
@@ -38,6 +41,8 @@ public class UserServiceImpl implements UserService {
         user.setStudentNumber(studentNumber);
         user.setPassword(password);
         user.setUsername(username);
+        user.setSex("?");
+        user.setStatus(1);
         list.add(user);
         userDao.addUser(user);
         return true;
