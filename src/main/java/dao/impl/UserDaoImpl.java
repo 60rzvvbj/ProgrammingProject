@@ -40,6 +40,7 @@ public class UserDaoImpl implements UserDao {
             int i = preparedStatement.executeUpdate();
             res = i > 0;
         } catch (Exception e) {
+            System.out.println(e);
             res = false;
         } finally {
             close();

@@ -9,7 +9,7 @@ create table user
     sno varchar(20) primary key,
     username varchar(20),
     password varchar(20),
-    sex      varchar(2),
+    sex      varchar(3),
     height   double,
     weight   double,
     status   int,

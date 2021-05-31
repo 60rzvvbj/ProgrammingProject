@@ -16,8 +16,9 @@ import java.util.Map;
 
 @WebServlet(name = "Login", value = "/login")
 public class LoginServlet extends HttpServlet {
+
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserService userService = ServiceFactory.getUserService();
 
         String sno = req.getParameter("sno");
@@ -30,10 +31,5 @@ public class LoginServlet extends HttpServlet {
 
         resp.getWriter().write(JsonUtil.mapToJson(data));
         resp.getWriter().close();
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.doGet(req, resp);
     }
 }
