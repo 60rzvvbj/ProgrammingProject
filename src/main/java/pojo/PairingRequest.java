@@ -16,6 +16,7 @@ public class PairingRequest {
     private long startTime;//用户输入配对请求之后，就获取当前时间
     private String recipientNumber;//接单人学号，怎么获取？
     private String ID;//设置一个配对ID，用来记录是第几个发起配对
+
     //ID怎么获取？
     public PairingRequest() {
     }
@@ -57,10 +58,12 @@ public class PairingRequest {
     public String getRequest() {
         return request;
     }
-    public void setID(String ID){
-        this.ID=ID;
+
+    public void setID(String ID) {
+        this.ID = ID;
     }
-    public String getID(){
+
+    public String getID() {
         return ID;
     }
 
