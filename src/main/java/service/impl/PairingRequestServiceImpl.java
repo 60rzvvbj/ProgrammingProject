@@ -30,8 +30,9 @@ public class PairingRequestServiceImpl implements PairingRequestService {
         String request = input.next();
         pairingRequest.setRequest(request);
         pairingRequest.setStudentNumber(studentNumber);
+        if (pairingRequestDao.addPairingRequest(pairingRequest)){
         //每次发起一个配对，就往配对列表中添加该配对
-        userPairingList.add(pairingRequest);
+        userPairingList.add(pairingRequest);}
         return pairingRequest.getID();
     }
 
@@ -48,9 +49,14 @@ public class PairingRequestServiceImpl implements PairingRequestService {
     @Override
     public boolean removePairingRequest(String studentNumber, String ID) {
         PairingRequest pairingRequest = new PairingRequest();
-        pairingRequest.setID(null);
-        pairingRequest.setStudentNumber(null);
-        return true;
+        if (pairingRequestDao.removePairingRequestByID(ID)){
+            //每次删除一个配对，就往配对列表中去除该配对
+            userPairingList.remove(pairingRequest);
+            return true;
+        }
+        else
+            return false;
+
     }
 
     @Override
