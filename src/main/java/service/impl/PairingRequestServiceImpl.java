@@ -1,17 +1,25 @@
 package service.impl;
 
+import commom.factory.DaoFactory;
+import dao.PairingRequestDao;
+import dao.UserDao;
 import pojo.PairingRequest;
 import pojo.User;
 import service.PairingRequestService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class PairingRequestServiceImpl implements PairingRequestService {
-    //构造方法
+    private final PairingRequestDao pairingRequestDao;
+    private final List<PairingRequest> list;
+    //设置一个配对列表，用来存放发起的配对
+    private List<PairingRequest> userPairingList=new ArrayList<>();
     public PairingRequestServiceImpl() {
+        this.pairingRequestDao= DaoFactory.getPairingRequestDao();
+        this.list =pairingRequestDao.queryAllPairingRequest();
     }
-
     @Override
     public String addPairingRequest(String studentNumber) {
         PairingRequest pairingRequest = new PairingRequest();
@@ -20,17 +28,19 @@ public class PairingRequestServiceImpl implements PairingRequestService {
         String request = input.next();
         pairingRequest.setRequest(request);
         pairingRequest.setStudentNumber(studentNumber);
+        //每次发起一个配对，就往配对列表中添加该配对
+        userPairingList.add(pairingRequest);
         return pairingRequest.getID();
     }
 
     @Override
     public List<PairingRequest> queryPairingRequest() {
-        return null;
+        return list;
     }
 
     @Override
     public List<PairingRequest> queryUserPairing(String studentNumber) {
-        return null;
+        return userPairingList;
     }
 
     @Override
