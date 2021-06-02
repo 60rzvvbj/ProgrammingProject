@@ -3,6 +3,7 @@ package service;
 import pojo.PairingRequest;
 
 import java.util.List;
+import java.util.Map;
 
 public interface PairingRequestService {
 
@@ -15,7 +16,7 @@ public interface PairingRequestService {
      * @author 60rzvvbj
      * @date 2021/5/25
      */
-    String addPairingRequest(String studentNumber);
+    String addPairingRequest(String studentNumber, Map<String, Object> data);
 
     /**
      * <p><b>方法名：</b>{@code queryPairingRequest}</p>

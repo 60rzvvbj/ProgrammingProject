@@ -9,6 +9,7 @@ import service.PairingRequestService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class PairingRequestServiceImpl implements PairingRequestService {
@@ -23,7 +24,7 @@ public class PairingRequestServiceImpl implements PairingRequestService {
     }
 
     @Override
-    public String addPairingRequest(String studentNumber) {
+    public String addPairingRequest(String studentNumber, Map<String, Object> data) {
         PairingRequest pairingRequest = new PairingRequest();
         Scanner input = new Scanner(System.in);
         System.out.println("请输入配对要求：");
