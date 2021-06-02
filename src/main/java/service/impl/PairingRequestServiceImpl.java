@@ -15,11 +15,13 @@ public class PairingRequestServiceImpl implements PairingRequestService {
     private final PairingRequestDao pairingRequestDao;
     private final List<PairingRequest> list;
     //设置一个配对列表，用来存放发起的配对
-    private List<PairingRequest> userPairingList=new ArrayList<>();
+    private List<PairingRequest> userPairingList = new ArrayList<>();
+
     public PairingRequestServiceImpl() {
-        this.pairingRequestDao= DaoFactory.getPairingRequestDao();
-        this.list =pairingRequestDao.queryAllPairingRequest();
+        this.pairingRequestDao = DaoFactory.getPairingRequestDao();
+        this.list = pairingRequestDao.queryAllPairingRequest();
     }
+
     @Override
     public String addPairingRequest(String studentNumber) {
         PairingRequest pairingRequest = new PairingRequest();
