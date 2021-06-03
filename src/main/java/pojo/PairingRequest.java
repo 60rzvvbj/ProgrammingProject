@@ -21,7 +21,7 @@ public class PairingRequest {
     public PairingRequest() {
     }
 
-    //创建一个两个参数的构造方法，创建一个有配对要求的学生
+    //创建一个参数的构造方法
     public PairingRequest(String studentNumber) {
         this.studentNumber = studentNumber;
 
