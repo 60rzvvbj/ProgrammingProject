@@ -11,7 +11,7 @@ import java.util.List;
  * @date 2021/5/22
  */
 public interface FriendRequestDao {
-    boolean addFriendRequest(FriendRequest friendRequest);
+    String addFriendRequest(FriendRequest friendRequest);
 
     boolean removeFriendRequest(FriendRequest friendRequest);
 

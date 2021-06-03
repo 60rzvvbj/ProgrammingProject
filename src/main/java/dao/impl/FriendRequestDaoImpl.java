@@ -13,9 +13,10 @@ import java.util.List;
  * @date 2021/5/22
  */
 public class FriendRequestDaoImpl implements FriendRequestDao {
+
     @Override
-    public boolean addFriendRequest(FriendRequest friendRequest) {
-        return false;
+    public String addFriendRequest(FriendRequest friendRequest) {
+        return null;
     }
 
     @Override
