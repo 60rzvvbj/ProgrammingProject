@@ -35,7 +35,8 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     @Override
     public String addFeedback(String studentNumber, int type, String content) { //在数据库添加反馈
-        Feedback feedback = new Feedback(studentNumber, type, content);
+        Long time = System.currentTimeMillis();
+        Feedback feedback = new Feedback(studentNumber, type, content, time);
         return feedbackDao.addFeedback(feedback);
     }
 

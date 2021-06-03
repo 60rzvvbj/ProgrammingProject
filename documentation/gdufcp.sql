@@ -20,8 +20,8 @@ drop table user;
 -- 好友列表
 create table friendList
 (
-    user1no int,
-    user2no int,
+    user1no varchar(20),
+    user2no varchar(20),
     addtime long,
     primary key (user1no, user2no)
 );
@@ -30,8 +30,8 @@ create table friendList
 create table friendreq
 (
     id      int primary key auto_increment,
-    reqno   int,
-    resno   int,
+    reqno   varchar(20),
+    resno   varchar(20),
     reqtime long,
     status  int
 );
@@ -40,8 +40,8 @@ create table friendreq
 create table pairingreq
 (
     id      int primary key auto_increment,
-    reqsno  int,
-    ressno  int,
+    reqsno  varchar(20),
+    ressno  varchar(20),
     reqtime long,
     content text,
     status  int
@@ -51,7 +51,7 @@ create table pairingreq
 create table feedback
 (
     id      int primary key auto_increment,
-    sno     int,
+    sno     varchar(20),
     type    int,
     content text,
     ftime   long

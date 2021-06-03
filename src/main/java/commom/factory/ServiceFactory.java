@@ -15,7 +15,7 @@ public class ServiceFactory {
         administratorService = new AdministratorServiceImpl();
         feedbackService = new FeedbackServiceImpl();
         friendRequestService = new FriendRequestServiceImpl();
-        pairingRequestService = new PairingRequestServiceImpl();
+        pairingRequestService = new PairingRequestServiceCHTImpl();
         userService = new UserServiceImpl();
     }
 

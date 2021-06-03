@@ -9,7 +9,6 @@ package pojo;
  */
 
 public class Feedback {
-    private String username; //反馈人
     private String accountNumber; //反馈人学号
     private int type;   //1是普通反馈，2是举报用户
     private String content; //反馈内容
@@ -19,11 +18,11 @@ public class Feedback {
     public Feedback(){
     }
 
-    public Feedback(String accountNumber, int type, String content) {
+    public Feedback(String accountNumber, int type, String content, Long time) {
         this.accountNumber = accountNumber;
         this.type = type;
         this.content = content;
-        this.time = System.currentTimeMillis();
+        this.time = time;
     }
 
     public String getAccountNumber() {
@@ -54,8 +53,8 @@ public class Feedback {
         return time;
     }
 
-    public void setTime() {
-        this.time = System.currentTimeMillis();
+    public void setTime(Long time) {
+        this.time = time;
     }
 
     public void setFeedbackID(String feedbackID) {

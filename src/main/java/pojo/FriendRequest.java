@@ -45,9 +45,7 @@ public class FriendRequest {
         return time;
     }
 
-    public void setTime() {
-        this.time = System.currentTimeMillis();
-    }
+    public void setTime(Long time) { this.time = time; }
 
     public int getStatus() {
         return status;

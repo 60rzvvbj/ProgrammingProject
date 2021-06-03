@@ -5,7 +5,7 @@ package pojo;
  * <p><b>功能：</b></p><br>配对的java bean
  * <p><b>方法：</b></p>
  *
- * @author 24LJ
+ * @author 24LJ, iamcht
  * @date 2021/5/22
  */
 
@@ -14,17 +14,18 @@ public class PairingRequest {
     private String studentNumber;//创建对象时传递进来
     private String request;//通过用户输入获取
     private long startTime;//用户输入配对请求之后，就获取当前时间
-    private String recipientNumber;//接单人学号，怎么获取？
+    private String recipientNumber;//接受人学号
     private String ID;//设置一个配对ID，用来记录是第几个发起配对
 
-    //ID怎么获取？
     public PairingRequest() {
     }
 
     //创建一个参数的构造方法
-    public PairingRequest(String studentNumber) {
+    public PairingRequest(String studentNumber, String request, String recipientNumber) {
         this.studentNumber = studentNumber;
-
+        this.request = request;
+        this.recipientNumber = recipientNumber;
+        this.startTime = System.currentTimeMillis();
     }
 
     public void setStudentNumber(String studentNumber) {

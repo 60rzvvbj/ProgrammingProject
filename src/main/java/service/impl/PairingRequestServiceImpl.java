@@ -53,24 +53,24 @@ public class PairingRequestServiceImpl implements PairingRequestService {
 
     @Override
     public boolean removePairingRequest(String studentNumber, String ID) {
-        PairingRequest pairingRequest = new PairingRequest(studentNumber);
-        if (pairingRequestDao.removePairingRequestByID(ID)) {
-            list.remove(pairingRequest);
-            return true;
-        } else
+//        PairingRequest pairingRequest = new PairingRequest(studentNumber);
+//        if (pairingRequestDao.removePairingRequestByID(ID)) {
+//            list.remove(pairingRequest);
+//            return true;
+//        } else
             return false;
 
     }
 
     @Override
     public boolean acceptPairing(String acceptNumber, String ID) {
-        PairingRequest pairingRequest = new PairingRequest();
-        pairingRequest.setRecipientNumber(acceptNumber);
-        pairingRequest.setID(ID);
-        PairingRequest pairingRequest1 = new PairingRequest(acceptNumber);
-        if (pairingRequest1.getRequest().equals(pairingRequest.getRequest())) {
-            return true;
-        } else
+//        PairingRequest pairingRequest = new PairingRequest();
+//        pairingRequest.setRecipientNumber(acceptNumber);
+//        pairingRequest.setID(ID);
+//        PairingRequest pairingRequest1 = new PairingRequest(acceptNumber);
+//        if (pairingRequest1.getRequest().equals(pairingRequest.getRequest())) {
+//            return true;
+//        } else
             return false;
     }
 }
