@@ -53,7 +53,7 @@ public class UserDaoImpl implements UserDao {
         boolean res;
         try {
             connection = JDBCUtil.getConnection();
-            String sql = "insert into user(username, password, sex, height, weight, status) values(?, ?, ?, ?, ?, ?) where sno = ?";
+            String sql = "update user set username = ?, password = ?, sex = ?, height = ?, weight = ?, status = ? where sno = ?";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, user.getUsername());
             preparedStatement.setString(2, user.getPassword());
