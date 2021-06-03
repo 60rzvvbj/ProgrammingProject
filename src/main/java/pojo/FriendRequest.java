@@ -15,6 +15,9 @@ public class FriendRequest {
     private int status; //状态：1代表等待中，2代表拒绝，3代表接受
     private String requestID;
 
+    public FriendRequest() {
+    }
+
     public FriendRequest(String requested, String applicant, int status) {
         this.requested = requested;
         this.applicant = applicant;
@@ -22,7 +25,9 @@ public class FriendRequest {
         this.status = status;
     }
 
-    public String getRequested() { return requested; }
+    public String getRequested() {
+        return requested;
+    }
 
     public void setRequested(String requested) {
         this.requested = requested;
@@ -59,6 +64,7 @@ public class FriendRequest {
     public void setRequestID(String requestID) {
         this.requestID = requestID;
     }
+
     @Override
     public String toString() {
         return "FriendRequest{" +

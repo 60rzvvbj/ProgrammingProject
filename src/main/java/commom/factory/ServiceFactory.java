@@ -14,7 +14,7 @@ public class ServiceFactory {
     static {
         administratorService = new AdministratorServiceImpl();
         feedbackService = new FeedbackServiceImpl();
-        friendRequestService = new FriendRequestImpl();
+        friendRequestService = new FriendRequestServiceImpl();
         pairingRequestService = new PairingRequestServiceImpl();
         userService = new UserServiceImpl();
     }
