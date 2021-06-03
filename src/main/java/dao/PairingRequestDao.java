@@ -11,7 +11,7 @@ import java.util.List;
  * @date 2021/5/22
  */
 public interface PairingRequestDao {
-    boolean addPairingRequest(PairingRequest pairingRequest);
+    String addPairingRequest(PairingRequest pairingRequest);
 
     boolean removePairingRequestByID(String id);
 

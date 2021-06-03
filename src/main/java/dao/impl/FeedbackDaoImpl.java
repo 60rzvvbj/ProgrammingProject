@@ -14,8 +14,8 @@ import java.util.List;
  */
 public class FeedbackDaoImpl implements FeedbackDao {
     @Override
-    public boolean addFeedback(Feedback feedback) {
-        return false;
+    public String addFeedback(Feedback feedback) {
+        return null;
     }
 
     @Override

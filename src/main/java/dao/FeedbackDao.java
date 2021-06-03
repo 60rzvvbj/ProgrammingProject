@@ -11,7 +11,7 @@ import java.util.List;
  * @date 2021/5/22
  */
 public interface FeedbackDao {
-    boolean addFeedback(Feedback feedback);
+    String addFeedback(Feedback feedback);
 
     boolean removeFeedbackByID(String id);
 

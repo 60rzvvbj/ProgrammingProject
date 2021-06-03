@@ -14,8 +14,8 @@ import java.util.List;
  */
 public class PairingRequestDaoImpl implements PairingRequestDao {
     @Override
-    public boolean addPairingRequest(PairingRequest pairingRequest) {
-        return false;
+    public String addPairingRequest(PairingRequest pairingRequest) {
+        return null;
     }
 
     @Override
