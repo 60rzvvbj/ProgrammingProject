@@ -15,8 +15,6 @@ import java.util.Scanner;
 public class PairingRequestServiceImpl implements PairingRequestService {
     private final PairingRequestDao pairingRequestDao;
     private final List<PairingRequest> list;
-    //设置一个配对列表，用来存放发起的配对
-    private List<PairingRequest> userPairingList = new ArrayList<>();
 
     public PairingRequestServiceImpl() {
         this.pairingRequestDao = DaoFactory.getPairingRequestDao();
@@ -26,14 +24,11 @@ public class PairingRequestServiceImpl implements PairingRequestService {
     @Override
     public String addPairingRequest(String studentNumber, Map<String, Object> data) {
         PairingRequest pairingRequest = new PairingRequest();
-        Scanner input = new Scanner(System.in);
-        System.out.println("请输入配对要求：");
-        String request = input.next();
+        //获取请求
+        String request = (String) data.get("request");
         pairingRequest.setRequest(request);
         pairingRequest.setStudentNumber(studentNumber);
-        if (pairingRequestDao.addPairingRequest(pairingRequest)){
-        //每次发起一个配对，就往配对列表中添加该配对
-        userPairingList.add(pairingRequest);}
+        //还要获取ID
         return pairingRequest.getID();
     }
 
@@ -44,18 +39,25 @@ public class PairingRequestServiceImpl implements PairingRequestService {
 
     @Override
     public List<PairingRequest> queryUserPairing(String studentNumber) {
-        return userPairingList;
+        //建立一个列表，用来存放个人的配对信息
+        List<PairingRequest> list1 = new ArrayList<>();
+        for (PairingRequest p : list) {
+            if (p.getStudentNumber().equals(studentNumber)) {
+                //查找所有配对列表中的数据，如果是本人的配对，就加到个人配对列表中
+                list1.add(p);
+            }
+        }
+        //返回个人配对列表
+        return list1;
     }
 
     @Override
     public boolean removePairingRequest(String studentNumber, String ID) {
-        PairingRequest pairingRequest = new PairingRequest();
-        if (pairingRequestDao.removePairingRequestByID(ID)){
-            //每次删除一个配对，就往配对列表中去除该配对
-            userPairingList.remove(pairingRequest);
+        PairingRequest pairingRequest = new PairingRequest(studentNumber);
+        if (pairingRequestDao.removePairingRequestByID(ID)) {
+            list.remove(pairingRequest);
             return true;
-        }
-        else
+        } else
             return false;
 
     }
