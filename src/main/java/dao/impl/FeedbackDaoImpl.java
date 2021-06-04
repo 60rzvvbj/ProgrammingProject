@@ -49,14 +49,14 @@ public class FeedbackDaoImpl implements FeedbackDao {
     @Override
     public List<Feedback> queryAllFeedback() {
         List<Feedback> res = null;
-        try{
+        try {
             connection = JDBCUtil.getConnection();
             String sql = "select * from feedback";
             preparedStatement = connection.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
             res = new LinkedList<>();
             Feedback feedback;
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 feedback = new Feedback();
                 feedback.setFeedbackID(resultSet.getInt("id") + "");
                 feedback.setAccountNumber(resultSet.getString("sno"));
@@ -65,12 +65,13 @@ public class FeedbackDaoImpl implements FeedbackDao {
                 feedback.setTime(resultSet.getLong("ftime"));
                 res.add(feedback);
             }
-        } catch (Exception e){
+        } catch (Exception e) {
         } finally {
             close();
         }
         return res;
     }
+
     private void close() {
         JDBCUtil.close(resultSet, preparedStatement, connection);
     }

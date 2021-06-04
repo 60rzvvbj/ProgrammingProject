@@ -21,6 +21,8 @@ public class User {
     private double weight;
     private List<String> friendList;//好友列表
     private int status = 1;//账号状态，0为异常，1为正常
+    private String personalProfile;
+    private String contactInformation;
 
     public User() {
     }
@@ -101,6 +103,22 @@ public class User {
 
     public int getStatus() {
         return status;
+    }
+
+    public void setPersonalProfile(String personalProfile) {
+        this.personalProfile = personalProfile;
+    }
+
+    public String getPersonalProfile() {
+        return personalProfile;
+    }
+
+    public void setContactInformation(String contactInformation) {
+        this.contactInformation = contactInformation;
+    }
+
+    public String getContactInformation() {
+        return contactInformation;
     }
 
     @Override

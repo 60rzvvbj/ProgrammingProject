@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean register(String studentNumber, String password, String username) { //注册
         User user = new User();
-        if(studentNumber.equals(null) || password.equals(null) || username.equals(null)){
+        if (studentNumber == null || password == null || username == null) {
             return false;
         }
         for (User i : list) {
@@ -135,9 +135,9 @@ public class UserServiceImpl implements UserService {
         for (User i : list) {
             if (i.getStudentNumber().equals(studentNumber)) {
                 List<String> stringList = i.getFriendList();
-                for(String j : stringList){
-                    for(User k : list){
-                        if(k.getStudentNumber().equals(j)){
+                for (String j : stringList) {
+                    for (User k : list) {
+                        if (k.getStudentNumber().equals(j)) {
                             userList.add(k);
                         }
                     }

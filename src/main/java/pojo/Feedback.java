@@ -15,7 +15,7 @@ public class Feedback {
     private long time; //反馈时间
     private String feedbackID;
 
-    public Feedback(){
+    public Feedback() {
     }
 
     public Feedback(String accountNumber, int type, String content, Long time) {

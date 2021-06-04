@@ -34,14 +34,14 @@ public class FriendRequestDaoImpl implements FriendRequestDao {
     public boolean removeFriendRequest(FriendRequest friendRequest) {
         int id = Integer.parseInt(friendRequest.getRequestID());
         boolean res;
-        try{
+        try {
             connection = JDBCUtil.getConnection();
             String sql = "delete from friendreq where id = ?";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
             int i = preparedStatement.executeUpdate();
             res = i > 0;
-        } catch (Exception e){
+        } catch (Exception e) {
             res = false;
         } finally {
             close();
@@ -74,6 +74,7 @@ public class FriendRequestDaoImpl implements FriendRequestDao {
         }
         return res;
     }
+
     private void close() {
         JDBCUtil.close(resultSet, preparedStatement, connection);
     }

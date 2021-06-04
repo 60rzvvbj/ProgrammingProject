@@ -14,7 +14,7 @@ import java.util.List;
  * <p><b>类名：</b>{@code UserDaoImpl}</p>
  * <p><b>功能：</b></p><br>UserDao的实现类
  *
- * @author 60rzvvbj
+ * @author 60rzvvbj, iamcht
  * @date 2021/5/22
  */
 public class UserDaoImpl implements UserDao {
@@ -28,7 +28,7 @@ public class UserDaoImpl implements UserDao {
         boolean res;
         try {
             connection = JDBCUtil.getConnection();
-            String sql = "insert into user(sno, username, password, sex, height, weight, status) values(?, ?, ?, ?, ?, ?, ?)";
+            String sql = "insert into user(sno, username, password, sex, height, weight, personalProfile, contactInformation, status ) values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, user.getStudentNumber());
             preparedStatement.setString(2, user.getUsername());
@@ -36,7 +36,9 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(4, user.getSex());
             preparedStatement.setDouble(5, user.getHeight());
             preparedStatement.setDouble(6, user.getWeight());
-            preparedStatement.setInt(7, user.getStatus());
+            preparedStatement.setString(7, user.getPersonalProfile());
+            preparedStatement.setString(8, user.getContactInformation());
+            preparedStatement.setInt(9, user.getStatus());
             int i = preparedStatement.executeUpdate();
             res = i > 0;
         } catch (Exception e) {
@@ -53,15 +55,17 @@ public class UserDaoImpl implements UserDao {
         boolean res;
         try {
             connection = JDBCUtil.getConnection();
-            String sql = "update user set username = ?, password = ?, sex = ?, height = ?, weight = ?, status = ? where sno = ?";
+            String sql = "update user set username = ?, password = ?, sex = ?, height = ?, weight = ?, personalProfile = ?, contactInformation = ?, status = ? where sno = ?";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, user.getUsername());
             preparedStatement.setString(2, user.getPassword());
             preparedStatement.setString(3, user.getSex());
             preparedStatement.setDouble(4, user.getHeight());
             preparedStatement.setDouble(5, user.getWeight());
-            preparedStatement.setInt(6, user.getStatus());
-            preparedStatement.setString(7, user.getStudentNumber());
+            preparedStatement.setString(6, user.getPersonalProfile());
+            preparedStatement.setString(7, user.getContactInformation());
+            preparedStatement.setInt(8, user.getStatus());
+            preparedStatement.setString(9, user.getStudentNumber());
             int i = preparedStatement.executeUpdate();
             res = i > 0;
         } catch (Exception e) {
@@ -108,6 +112,8 @@ public class UserDaoImpl implements UserDao {
                 user.setSex(resultSet.getString("sex"));
                 user.setHeight(resultSet.getDouble("height"));
                 user.setWeight(resultSet.getDouble("weight"));
+                user.setPersonalProfile(resultSet.getString("personalProfile"));
+                user.setContactInformation(resultSet.getString("contactInformation"));
                 user.setStatus(resultSet.getInt("status"));
                 user.setFriendList(queryFriend(user.getStudentNumber()));
                 res.add(user);
