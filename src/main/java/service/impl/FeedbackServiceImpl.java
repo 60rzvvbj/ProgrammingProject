@@ -37,6 +37,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     public String addFeedback(String studentNumber, int type, String content) { //在数据库添加反馈
         Long time = System.currentTimeMillis();
         Feedback feedback = new Feedback(studentNumber, type, content, time);
+        feedbackList.add(feedback);
         return feedbackDao.addFeedback(feedback);
     }
 
@@ -45,6 +46,7 @@ public class FeedbackServiceImpl implements FeedbackService {
         for (Feedback i : feedbackList) {
             if (i.getFeedbackID().equals(feedbackID)) {
                 feedbackDao.removeFeedbackByID(i.getFeedbackID());
+                feedbackList.remove(i);
                 return true;
             }
         }

@@ -130,11 +130,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> queryFriendList(String studentNumber) { //查询某用户的好友列表
-        /*for (User i : list) {
+        for (User i : list) {
             if (i.getStudentNumber().equals(studentNumber)) {
-                return i.getList();
+
             }
-        }*/
+        }
         return null;
     }
 }

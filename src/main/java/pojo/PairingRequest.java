@@ -11,11 +11,12 @@ package pojo;
 
 
 public class PairingRequest {
-    private String studentNumber;//创建对象时传递进来
-    private String request;//通过用户输入获取
-    private long startTime;//用户输入配对请求之后，就获取当前时间
-    private String recipientNumber;//接受人学号
-    private String ID;//设置一个配对ID，用来记录是第几个发起配对
+    private String studentNumber;   //创建对象时传递进来
+    private String request; //通过用户输入获取
+    private long startTime; //用户输入配对请求之后，就获取当前时间
+    private String recipientNumber; //接受人学号
+    private String ID;  //设置一个配对ID，用来记录是第几个发起配对
+    private int status; //表示配对状态，0代表等待中，1表示已经被接受
 
     public PairingRequest() {
     }
@@ -67,6 +68,9 @@ public class PairingRequest {
     public String getID() {
         return ID;
     }
+    public int getStatus() { return status; }
+
+    public void setStatus(int status) { this.status = status; }
 
     @Override
     public String toString() {

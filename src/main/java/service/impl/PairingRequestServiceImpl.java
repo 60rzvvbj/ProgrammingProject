@@ -52,7 +52,7 @@ public class PairingRequestServiceImpl implements PairingRequestService {
     }
 
     @Override
-    public boolean removePairingRequest(String studentNumber, String ID) {
+    public boolean removePairingRequest(String ID) {
 //        PairingRequest pairingRequest = new PairingRequest(studentNumber);
 //        if (pairingRequestDao.removePairingRequestByID(ID)) {
 //            list.remove(pairingRequest);
