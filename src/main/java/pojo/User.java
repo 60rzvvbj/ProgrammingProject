@@ -12,6 +12,10 @@ import java.util.Date;
 import java.util.List;
 
 public class User {
+
+    public static final String DEFAULT_PERSONAL_PROFILE = "这个用户很懒，什么也没有写";
+    public static final String DEFAULT_CONTACT_INFORMATION = "这个用户还没有填写联系方式";
+
     private String username;
     private String password;
     private String sex;
