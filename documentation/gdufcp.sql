@@ -12,6 +12,8 @@ create table user
     sex      varchar(3),
     height   double,
     weight   double,
+    personalProfile text,
+    contactInformation text,
     status   int,
     check (sex in ('男', '女', '?'))
 );
