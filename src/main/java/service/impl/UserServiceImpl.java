@@ -78,9 +78,9 @@ public class UserServiceImpl implements UserService {
         for (User i : list) {
             if (studentNumber.equals(i.getStudentNumber())) {
                 i.setSex((String) map.get("sex"));
-                i.setAge((int) map.get("age"));
-                i.setHeight((double) map.get("height"));
-                i.setWeight((double) map.get("weight"));
+                i.setAge(Integer.parseInt((String) map.get("age")));
+                i.setHeight(Double.parseDouble((String) map.get("height")));
+                i.setWeight(Double.parseDouble((String) map.get("weight")));
                 if(map.get("personalProfile") == null || map.get("personalProfile").equals("")){
                     i.setPersonalProfile(User.DEFAULT_PERSONAL_PROFILE);
                 } else {
