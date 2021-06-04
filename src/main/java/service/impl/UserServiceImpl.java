@@ -44,6 +44,8 @@ public class UserServiceImpl implements UserService {
         user.setUsername(username);
         user.setSex("?");
         user.setStatus(1);
+        user.setPersonalProfile(User.DEFAULT_PERSONAL_PROFILE);
+        user.setContactInformation(User.DEFAULT_CONTACT_INFORMATION);
         list.add(user);
         userDao.addUser(user);
         return true;
@@ -77,8 +79,18 @@ public class UserServiceImpl implements UserService {
             if (studentNumber.equals(i.getStudentNumber())) {
                 i.setSex((String) map.get("sex"));
                 i.setAge((int) map.get("age"));
-                i.setHeight((int) map.get("height"));
-                i.setWeight((int) map.get("weight"));
+                i.setHeight((double) map.get("height"));
+                i.setWeight((double) map.get("weight"));
+                if(map.get("personalProfile") == null || map.get("personalProfile").equals("")){
+                    i.setPersonalProfile(User.DEFAULT_PERSONAL_PROFILE);
+                } else {
+                    i.setPersonalProfile((String) map.get("personalProfile"));
+                }
+                if(map.get("contactInformation") == null || map.get("contactInformation").equals("")){
+                    i.setContactInformation(User.DEFAULT_CONTACT_INFORMATION);
+                } else {
+                    i.setContactInformation((String) map.get("contactInformation"));
+                }
                 return true;
             }
         }
