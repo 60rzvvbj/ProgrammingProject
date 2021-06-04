@@ -91,9 +91,9 @@ public class UserServiceImpl implements UserService {
                 } else {
                     i.setContactInformation((String) map.get("contactInformation"));
                 }
+                userDao.modifyUser(i);
                 return true;
             }
-            userDao.modifyUser(i);
         }
         return false;
     }
