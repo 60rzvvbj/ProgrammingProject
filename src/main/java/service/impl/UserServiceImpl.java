@@ -14,6 +14,7 @@ import pojo.User;
 import service.UserService;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -130,9 +131,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> queryFriendList(String studentNumber) { //查询某用户的好友列表
+        List<User> userList = new LinkedList<>();
         for (User i : list) {
             if (i.getStudentNumber().equals(studentNumber)) {
-
+                List<String> stringList = i.getFriendList();
+                for(String j : stringList){
+                    for(User k : list){
+                        if(k.getStudentNumber().equals(j)){
+                            userList.add(k);
+                        }
+                    }
+                }
+                return userList;
             }
         }
         return null;
