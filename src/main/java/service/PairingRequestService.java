@@ -43,13 +43,12 @@ public interface PairingRequestService {
      * <p><b>方法名：</b>{@code removePairingRequest}</p>
      * <p><b>功能：</b></p><br>删除配对
      *
-     * @param studentNumber 学号
      * @param ID            配对ID
      * @return 是否成功
      * @author 60rzvvbj
      * @date 2021/5/27
      */
-    boolean removePairingRequest(String studentNumber, String ID);
+    boolean removePairingRequest(String ID);
 
     /**
      * <p><b>方法名：</b>{@code acceptPairing}</p>
