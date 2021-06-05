@@ -59,6 +59,7 @@ public class AdministratorDaoImpl implements AdministratorDao {
                 res.add(administrator);
             }
         } catch (Exception e) {
+            System.out.println(e);
         } finally {
             close();
         }

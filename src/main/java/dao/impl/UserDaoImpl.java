@@ -28,17 +28,18 @@ public class UserDaoImpl implements UserDao {
         boolean res;
         try {
             connection = JDBCUtil.getConnection();
-            String sql = "insert into user(sno, username, password, sex, height, weight, personalProfile, contactInformation, status ) values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "insert into user(sno, username, password, sex, age, height, weight, personalProfile, contactInformation, status ) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, user.getStudentNumber());
             preparedStatement.setString(2, user.getUsername());
             preparedStatement.setString(3, user.getPassword());
             preparedStatement.setString(4, user.getSex());
-            preparedStatement.setDouble(5, user.getHeight());
-            preparedStatement.setDouble(6, user.getWeight());
-            preparedStatement.setString(7, user.getPersonalProfile());
-            preparedStatement.setString(8, user.getContactInformation());
-            preparedStatement.setInt(9, user.getStatus());
+            preparedStatement.setInt(5, user.getAge());
+            preparedStatement.setDouble(6, user.getHeight());
+            preparedStatement.setDouble(7, user.getWeight());
+            preparedStatement.setString(8, user.getPersonalProfile());
+            preparedStatement.setString(9, user.getContactInformation());
+            preparedStatement.setInt(10, user.getStatus());
             int i = preparedStatement.executeUpdate();
             res = i > 0;
         } catch (Exception e) {
@@ -55,17 +56,18 @@ public class UserDaoImpl implements UserDao {
         boolean res;
         try {
             connection = JDBCUtil.getConnection();
-            String sql = "update user set username = ?, password = ?, sex = ?, height = ?, weight = ?, personalProfile = ?, contactInformation = ?, status = ? where sno = ?";
+            String sql = "update user set username = ?, password = ?, sex = ?, age = ?, height = ?, weight = ?, personalProfile = ?, contactInformation = ?, status = ? where sno = ?";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, user.getUsername());
             preparedStatement.setString(2, user.getPassword());
             preparedStatement.setString(3, user.getSex());
-            preparedStatement.setDouble(4, user.getHeight());
-            preparedStatement.setDouble(5, user.getWeight());
-            preparedStatement.setString(6, user.getPersonalProfile());
-            preparedStatement.setString(7, user.getContactInformation());
-            preparedStatement.setInt(8, user.getStatus());
-            preparedStatement.setString(9, user.getStudentNumber());
+            preparedStatement.setInt(4, user.getAge());
+            preparedStatement.setDouble(5, user.getHeight());
+            preparedStatement.setDouble(6, user.getWeight());
+            preparedStatement.setString(7, user.getPersonalProfile());
+            preparedStatement.setString(8, user.getContactInformation());
+            preparedStatement.setInt(9, user.getStatus());
+            preparedStatement.setString(10, user.getStudentNumber());
             int i = preparedStatement.executeUpdate();
             res = i > 0;
         } catch (Exception e) {
@@ -119,6 +121,7 @@ public class UserDaoImpl implements UserDao {
                 res.add(user);
             }
         } catch (Exception e) {
+            System.out.println(e);
         } finally {
             close();
         }

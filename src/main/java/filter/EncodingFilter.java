@@ -2,10 +2,11 @@ package filter;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter("*")
+@WebFilter("/*")
 public class EncodingFilter implements Filter {
 
     @Override
@@ -17,11 +18,21 @@ public class EncodingFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
         // 类型强转
+        HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
 
+        String uri = req.getRequestURI();
+        if (uri.equals("/") || uri.startsWith("/static/") || uri.equals("/favicon.ico")) {
+            filterChain.doFilter(servletRequest, resp);
+        } else {
+            // 接口设置json头
+            resp.setContentType("application/json;charset=UTF-8");
+        }
+
         // 防止乱码
-        resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
+        // 接口设置json头
+        resp.setContentType("application/json;charset=UTF-8");
 
         /* 允许跨域的主机地址 */
         resp.setHeader("Access-Control-Allow-Origin", "*");

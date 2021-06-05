@@ -77,16 +77,17 @@ public class UserServiceImpl implements UserService {
     public boolean editInformation(String studentNumber, Map<String, Object> map) { //编辑个人信息
         for (User i : list) {
             if (studentNumber.equals(i.getStudentNumber())) {
+                i.setUsername((String) map.get("username"));
                 i.setSex((String) map.get("sex"));
                 i.setAge(Integer.parseInt((String) map.get("age")));
                 i.setHeight(Double.parseDouble((String) map.get("height")));
                 i.setWeight(Double.parseDouble((String) map.get("weight")));
-                if(map.get("personalProfile") == null || map.get("personalProfile").equals("")){
+                if (map.get("personalProfile") == null || map.get("personalProfile").equals("")) {
                     i.setPersonalProfile(User.DEFAULT_PERSONAL_PROFILE);
                 } else {
                     i.setPersonalProfile((String) map.get("personalProfile"));
                 }
-                if(map.get("contactInformation") == null || map.get("contactInformation").equals("")){
+                if (map.get("contactInformation") == null || map.get("contactInformation").equals("")) {
                     i.setContactInformation(User.DEFAULT_CONTACT_INFORMATION);
                 } else {
                     i.setContactInformation((String) map.get("contactInformation"));

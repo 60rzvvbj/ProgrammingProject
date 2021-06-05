@@ -12,6 +12,7 @@ public interface PairingRequestService {
      * <p><b>功能：</b></p><br>发起配对
      *
      * @param studentNumber 发起人学号
+     * @param data 数据
      * @return 配对ID
      * @author 60rzvvbj
      * @date 2021/5/25

@@ -10,6 +10,7 @@ create table user
     username varchar(20),
     password varchar(20),
     sex      varchar(3),
+    age      int,
     height   double,
     weight   double,
     personalProfile text,
@@ -82,3 +83,9 @@ insert into friendlist(user1no, user2no) values('191543110', '191543120');
 select if(user1no = '191543132', user2no, user1no) as sno
 from friendlist
 where user1no = '191543132' or user2no = '191543132';
+
+alter table user add column personalProfile text;
+
+alter table user add column contactInformation text;
+
+alter table user add column age int;
