@@ -111,6 +111,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> queryUser(String message) { // 查询用户，运用KMP算法
+        if(message == null){
+            return list;
+        }
         List<User> res = new ArrayList<>(); //创建一个集合，存放符合条件的用户
         int m = message.length();
         int[] ne = new int[m];
