@@ -35,7 +35,7 @@ public class FriendRequestServiceImpl implements FriendRequestService {
 
     @Override
     public String addFriend(String applicant, String requested) {   //在数据库添加好友请求
-        FriendRequest friendRequest = new FriendRequest(applicant, requested, 1);
+        FriendRequest friendRequest = new FriendRequest(applicant, requested, 1, System.currentTimeMillis());
         return friendRequestDao.addFriendRequest(friendRequest);
     }
 
