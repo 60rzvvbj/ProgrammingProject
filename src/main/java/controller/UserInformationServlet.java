@@ -18,7 +18,7 @@ import java.util.Map;
 public class UserInformationServlet extends HttpServlet {
 
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // 获取用户信息
         UserService userService = ServiceFactory.getUserService();
 
@@ -47,7 +47,7 @@ public class UserInformationServlet extends HttpServlet {
     }
 
     @Override
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // 修改用户信息
         UserService userService = ServiceFactory.getUserService();
 

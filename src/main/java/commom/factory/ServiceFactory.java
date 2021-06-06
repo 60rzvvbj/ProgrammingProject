@@ -10,6 +10,7 @@ public class ServiceFactory {
     private static final FriendRequestService friendRequestService;
     private static final PairingRequestService pairingRequestService;
     private static final UserService userService;
+    private static final InformationService informationService;
 
     static {
         administratorService = new AdministratorServiceImpl();
@@ -17,6 +18,7 @@ public class ServiceFactory {
         friendRequestService = new FriendRequestServiceImpl();
         pairingRequestService = new PairingRequestServiceCHTImpl();
         userService = new UserServiceImpl();
+        informationService = new InformationServiceImpl();
     }
 
     public static AdministratorService getAdministratorService() {
@@ -37,5 +39,9 @@ public class ServiceFactory {
 
     public static UserService getUserService() {
         return userService;
+    }
+
+    public static InformationService getInformationService() {
+        return informationService;
     }
 }
