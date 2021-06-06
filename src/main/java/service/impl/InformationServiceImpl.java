@@ -33,7 +33,7 @@ public class InformationServiceImpl implements InformationService {
         List<FriendRequest> p = new LinkedList<>(); //存放有人给我发的好友请求
         List<PairingRequest> q = new LinkedList<>();//存放有人接受我的配对请求
         for (FriendRequest i : friendRequestList) {
-            if (i.getApplicant().equals(sno) && i.getStatus() == 2 && i.getStatus() == 3) {   //有人响应了我给他发的好友请求
+            if (i.getApplicant().equals(sno) && (i.getStatus() == 2 || i.getStatus() == 3)) {   //有人响应了我给他发的好友请求
                 list.add(i);
             }
             if (i.getRequested().equals(sno)) {   //有人给我发好友请求
