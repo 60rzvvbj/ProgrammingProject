@@ -36,7 +36,7 @@ public class InformationServiceImpl implements InformationService {
             if (i.getApplicant().equals(sno) && (i.getStatus() == 2 || i.getStatus() == 3)) {   //有人响应了我给他发的好友请求
                 list.add(i);
             }
-            if (i.getRequested().equals(sno)) {   //有人给我发好友请求
+            if (i.getRequested().equals(sno) && i.getStatus() == 1) {   //有人给我发好友请求
                 p.add(i);
             }
         }
@@ -47,15 +47,22 @@ public class InformationServiceImpl implements InformationService {
         }
 
         for (FriendRequest i : p) {
+            int flag = 0;
             for (PairingRequest j : q) {
                 if (i.getApplicant().equals(j.getRecipientNumber()) && i.getRequested().equals(j.getStudentNumber())) {
+                    flag = 1;
                     List<Object> u = new LinkedList<>();
                     u.add(j);
                     u.add(i.getRequestID());
                     list.add(u);
+                    break;
                 }
             }
+            if(flag == 0){
+                list.add(i);
+            }
         }
+
         return list;
     }
 
