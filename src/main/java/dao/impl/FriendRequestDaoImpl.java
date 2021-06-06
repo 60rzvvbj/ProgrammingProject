@@ -71,7 +71,24 @@ public class FriendRequestDaoImpl implements FriendRequestDao {
 
     @Override
     public boolean modifyFriendRequest(FriendRequest friendRequest) {
-        return false;
+        boolean res;
+        try {
+            connection = JDBCUtil.getConnection();
+            String sql = "update friendreq set reqno = ?, resno = ?, reqtime = ?, status = ? where id = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, friendRequest.getApplicant());
+            preparedStatement.setString(2, friendRequest.getRequested());
+            preparedStatement.setLong(3, friendRequest.getTime());
+            preparedStatement.setInt(4, friendRequest.getStatus());
+            preparedStatement.setInt(5, Integer.parseInt(friendRequest.getRequestID()));
+            int i = preparedStatement.executeUpdate();
+            res = i > 0;
+        } catch (Exception e){
+            res = false;
+        } finally {
+            close();
+        }
+        return res;
     }
 
     @Override
