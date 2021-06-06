@@ -46,6 +46,7 @@ public class UserServiceImpl implements UserService {
         user.setStatus(1);
         user.setPersonalProfile(User.DEFAULT_PERSONAL_PROFILE);
         user.setContactInformation(User.DEFAULT_CONTACT_INFORMATION);
+        user.setFriendList(new LinkedList<>());
         list.add(user);
         userDao.addUser(user);
         return true;
@@ -167,11 +168,49 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean addFriend(String sno1, String sno2) {
+        if(sno1.equals(sno2)){
+            return false;
+        }
+        int flag1 = 0, flag2 = 0;
+        for(User i : list){
+            if(i.getStudentNumber().equals(sno1)){
+                flag1 = 1;
+            }
+            if(i.getStudentNumber().equals(sno2)){
+                flag2 = 1;
+            }
+            if(flag1 == 1 && flag2 == 1){
+                break;
+            }
+        }
+        if(flag1 == 1 && flag2 == 1) {
+            userDao.addFriend(sno1, sno2, System.currentTimeMillis());
+            return true;
+        }
         return false;
     }
 
     @Override
     public boolean removeFriend(String sno1, String sno2) {
+        if(sno1.equals(sno2)){
+            return false;
+        }
+        int flag1 = 0, flag2 = 0;
+        for(User i : list){
+            if(i.getStudentNumber().equals(sno1)){
+                flag1 = 1;
+            }
+            if(i.getStudentNumber().equals(sno2)) {
+                flag2 = 1;
+            }
+                if(flag1 == 1 && flag2 == 1){
+                    break;
+                }
+            }
+            if(flag1 == 1 && flag2 == 1) {
+                userDao.removeFriend(sno1, sno2);
+                return true;
+            }
         return false;
     }
 }

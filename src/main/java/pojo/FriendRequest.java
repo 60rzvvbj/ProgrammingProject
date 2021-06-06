@@ -18,7 +18,7 @@ public class FriendRequest {
     public FriendRequest() {
     }
 
-    public FriendRequest(String requested, String applicant, int status, Long time) {
+    public FriendRequest(String applicant, String requested, int status, Long time) {
         this.requested = requested;
         this.applicant = applicant;
         this.status = status;
