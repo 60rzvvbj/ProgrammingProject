@@ -38,4 +38,17 @@ public class FriendListServlet extends HttpServlet {
         map.put("friendList", list);
         resp.getWriter().write(JsonUtil.mapToJson(map));
     }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String reqSno = req.getParameter("reqSno");
+        String resSno = req.getParameter("resSno");
+
+        UserService userService = ServiceFactory.getUserService();
+        boolean status = userService.removeFriend(reqSno, resSno);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("status", status);
+        resp.getWriter().write(JsonUtil.mapToJson(map));
+    }
 }

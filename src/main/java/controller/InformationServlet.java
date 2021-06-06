@@ -4,6 +4,7 @@ import commom.factory.ServiceFactory;
 import pojo.FriendRequest;
 import pojo.PairingRequest;
 import service.InformationService;
+import service.UserService;
 import util.JsonUtil;
 
 import javax.servlet.ServletException;
@@ -25,6 +26,7 @@ public class InformationServlet extends HttpServlet {
         String sno = req.getParameter("sno");
 
         InformationService informationService = ServiceFactory.getInformationService();
+        UserService userService = ServiceFactory.getUserService();
         List<Object> infoList = informationService.queryAllInformation(sno);
 
         Map<String, Object> map = new HashMap<>();
@@ -37,13 +39,14 @@ public class InformationServlet extends HttpServlet {
                 info.put("id", friendRequest.getRequestID());
                 if (friendRequest.getApplicant().equals(sno) && friendRequest.getStatus() != 1) {
                     info.put("type", 1); // 有人回应了我的请求
-                } else if (friendRequest.getRequested().equals(sno) && friendRequest.getStatus() == 1){
+                } else if (friendRequest.getRequested().equals(sno) && friendRequest.getStatus() == 1) {
                     info.put("type", 2); // 有人向我发起了请求
                 } else {
                     continue;
                 }
-                info.put("req", friendRequest.getApplicant());
-                info.put("res", friendRequest.getRequested());
+                info.put("time", friendRequest.getTime());
+                info.put("req", userService.queryUserByStudentNumber(friendRequest.getApplicant()).getUsername());
+                info.put("res", userService.queryUserByStudentNumber(friendRequest.getRequested()).getUsername());
                 info.put("status", friendRequest.getStatus());
                 list.add(info);
             } else if (o.getClass().equals(PairingRequest.class)) {
@@ -51,8 +54,11 @@ public class InformationServlet extends HttpServlet {
                 Map<String, Object> info = new HashMap<>();
                 map.put("id", pairingRequest.getID());
                 if (pairingRequest.getStudentNumber().equals(sno) && pairingRequest.getStatus() == 1) {
-                    map.put("res", pairingRequest.getRecipientNumber());
+                    info.put("type", 3); // 有人接了我的单
+                    map.put("res", userService.queryUserByStudentNumber(pairingRequest.getRecipientNumber()).getUsername());
                     map.put("status", pairingRequest.getStatus());
+                } else {
+                    continue;
                 }
                 list.add(info);
             }

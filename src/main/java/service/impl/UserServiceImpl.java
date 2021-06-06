@@ -9,6 +9,7 @@ package service.impl;
  */
 
 import commom.factory.DaoFactory;
+import commom.factory.ListFactory;
 import dao.UserDao;
 import pojo.User;
 import service.UserService;
@@ -25,7 +26,7 @@ public class UserServiceImpl implements UserService {
 
     public UserServiceImpl() {
         this.userDao = DaoFactory.getUserDao();
-        this.list = userDao.queryAllUser();
+        this.list = ListFactory.getUserList();
     }
 
     @Override
