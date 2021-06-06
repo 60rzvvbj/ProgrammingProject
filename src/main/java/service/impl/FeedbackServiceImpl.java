@@ -46,8 +46,7 @@ public class FeedbackServiceImpl implements FeedbackService {
         for (Feedback i : feedbackList) {
             if (i.getFeedbackID().equals(feedbackID)) {
                 feedbackDao.removeFeedbackByID(i.getFeedbackID());
-                feedbackList.remove(i);
-                return true;
+                return feedbackList.remove(i);
             }
         }
         return false;
