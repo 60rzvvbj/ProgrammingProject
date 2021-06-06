@@ -224,7 +224,7 @@ public class UserServiceImpl implements UserService {
             }
         }
         if(flag1 == 1 && flag2 == 1) {
-            boolean u = userDao.addFriend(sno1, sno2, System.currentTimeMillis());
+            boolean u = userDao.removeFriend(sno1, sno2);
             if(u){
                 List<String> plist = p.getFriendList();
                 List<String> qlist = q.getFriendList();
