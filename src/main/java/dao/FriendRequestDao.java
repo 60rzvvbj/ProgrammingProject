@@ -15,5 +15,7 @@ public interface FriendRequestDao {
 
     boolean removeFriendRequest(FriendRequest friendRequest);
 
+    boolean modifyFriendRequest(FriendRequest friendRequest);
+
     List<FriendRequest> queryAllFriendRequest();
 }

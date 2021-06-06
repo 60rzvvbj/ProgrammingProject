@@ -70,6 +70,11 @@ public class FriendRequestDaoImpl implements FriendRequestDao {
     }
 
     @Override
+    public boolean modifyFriendRequest(FriendRequest friendRequest) {
+        return false;
+    }
+
+    @Override
     public List<FriendRequest> queryAllFriendRequest() {
         List<FriendRequest> res = null;
         try {
