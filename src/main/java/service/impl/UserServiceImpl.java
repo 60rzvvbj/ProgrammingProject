@@ -164,4 +164,14 @@ public class UserServiceImpl implements UserService {
         }
         return null;
     }
+
+    @Override
+    public boolean addFriend(String sno1, String sno2) {
+        return false;
+    }
+
+    @Override
+    public boolean removeFriend(String sno1, String sno2) {
+        return false;
+    }
 }

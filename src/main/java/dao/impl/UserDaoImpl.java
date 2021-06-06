@@ -128,6 +128,55 @@ public class UserDaoImpl implements UserDao {
         return res;
     }
 
+    @Override
+    public boolean addFriend(String sno1, String sno2, long time) {
+        boolean res = false;
+        if (sno1.compareTo(sno2) > 0) {
+            String t = sno1;
+            sno1 = sno2;
+            sno2 = t;
+        }
+        try {
+            connection = JDBCUtil.getConnection();
+            String sql = "insert into friendList(user1no, user2no, addtime) values(?, ?, ?)";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, sno1);
+            preparedStatement.setString(2, sno2);
+            preparedStatement.setLong(3, time);
+            int line = preparedStatement.executeUpdate();
+            res = line > 0;
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            close();
+        }
+        return res;
+    }
+
+    @Override
+    public boolean removeFriend(String sno1, String sno2) {
+        boolean res = false;
+        if (sno1.compareTo(sno2) > 0) {
+            String t = sno1;
+            sno1 = sno2;
+            sno2 = t;
+        }
+        try {
+            connection = JDBCUtil.getConnection();
+            String sql = "delete from friendList where user1no = ? and user2no = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, sno1);
+            preparedStatement.setString(2, sno2);
+            int line = preparedStatement.executeUpdate();
+            res = line > 0;
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            close();
+        }
+        return res;
+    }
+
     // 查询所有好友学号
     private List<String> queryFriend(String studentNumber) {
         List<String> res = null;

@@ -39,6 +39,8 @@ create table friendreq
     status  int
 );
 
+drop table friendreq;
+
 -- 配对请求
 create table pairingreq
 (
@@ -89,3 +91,5 @@ alter table user add column personalProfile text;
 alter table user add column contactInformation text;
 
 alter table user add column age int;
+
+select * from friendreq;

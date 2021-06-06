@@ -89,4 +89,28 @@ public interface UserService {
      * @date 2021/5/24
      */
     List<User> queryFriendList(String studentNumber);
+
+    /**
+     * <p><b>方法名：</b>{@code addFriend}</p>
+     * <p><b>功能：</b></p><br>添加好友
+     *
+     * @param sno1 学号1
+     * @param sno2 学号2
+     * @return 是否成功
+     * @author 60rzvvbj
+     * @date 2021/6/6
+     */
+    boolean addFriend(String sno1, String sno2);
+
+    /**
+     * <p><b>方法名：</b>{@code removeFriend}</p>
+     * <p><b>功能：</b></p><br>删除好友
+     *
+     * @param sno1 学号1
+     * @param sno2 学好2
+     * @return 是否成功
+     * @author 60rzvvbj
+     * @date 2021/6/6
+     */
+    boolean removeFriend(String sno1, String sno2);
 }

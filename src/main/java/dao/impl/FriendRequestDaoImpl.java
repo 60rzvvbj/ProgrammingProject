@@ -9,6 +9,7 @@ import util.JDBCUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,7 +28,26 @@ public class FriendRequestDaoImpl implements FriendRequestDao {
 
     @Override
     public String addFriendRequest(FriendRequest friendRequest) {
-        return null;
+        String res = null;
+        try {
+            connection = JDBCUtil.getConnection();
+            String sql = "insert into friendreq(reqno, resno, reqtime, status) values(?, ?, ?, ?)";
+            preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, friendRequest.getApplicant());
+            preparedStatement.setString(2, friendRequest.getRequested());
+            preparedStatement.setLong(3, friendRequest.getTime());
+            preparedStatement.setInt(4, friendRequest.getStatus());
+            int line = preparedStatement.executeUpdate();
+            resultSet = preparedStatement.getGeneratedKeys();
+            if (resultSet.next()) {
+                res = resultSet.getString(1);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            close();
+        }
+        return res;
     }
 
     @Override

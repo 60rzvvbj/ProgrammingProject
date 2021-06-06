@@ -18,4 +18,8 @@ public interface UserDao {
     boolean removeUser(String sno);
 
     List<User> queryAllUser();
+
+    boolean addFriend(String sno1, String sno2, long time);
+
+    boolean removeFriend(String sno1, String sno2);
 }
