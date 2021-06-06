@@ -47,11 +47,16 @@ public class InformationServiceImpl implements InformationService {
         for(FriendRequest i : p) {
             for(PairingRequest j : q) {
                 if(i.getApplicant().equals(j.getRecipientNumber()) && i.getRequested().equals(j.getStudentNumber())){
-                    q.remove(j);
+                    p.remove(j);
                 }
             }
         }
-        list.add(q);
+        for(FriendRequest i : p){
+            list.add(i);
+        }
+        for(PairingRequest j : q){
+            list.add(j);
+        }
         return list;
     }
 
