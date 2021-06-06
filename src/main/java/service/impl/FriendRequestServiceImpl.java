@@ -35,6 +35,33 @@ public class FriendRequestServiceImpl implements FriendRequestService {
 
     @Override
     public String addFriend(String applicant, String requested) {   //在数据库添加好友请求
+        List<String> friendlist = new LinkedList<>();
+        int flag1 = 0, flag2 = 0;
+        for (User i : userList){    //判断两个用户是否存在
+            if(i.getStudentNumber().equals(applicant)){
+                friendlist = i.getFriendList(); //获取申请添加别人为好友的用户 自己的好友列表
+                flag1 = 1;
+            }
+            if(i.getStudentNumber().equals(requested)){
+                flag2 = 1;
+            }
+            if(flag1 == 1 && flag2 == 1){
+                break;
+            }
+        }
+        if(flag1 == 0 || flag2 == 0){
+            return "学号不存在";
+        }
+        for(String i : friendlist){ //判断要添加的人是否已经是好友
+            if(i.equals(requested)){
+                return "两个用户已经是好友";
+            }
+        }
+        for(FriendRequest i : friendRequestList){   //判断申请人之前是否已申请过，并且对面还没接受
+            if(i.getApplicant().equals(applicant) && i.getRequested().equals(requested) && i.getStatus() == 1){
+                return "申请人之前已申请过，对面还没接受";
+            }
+        }
         FriendRequest friendRequest = new FriendRequest(applicant, requested, 1, System.currentTimeMillis());
         return friendRequestDao.addFriendRequest(friendRequest);
     }
@@ -47,6 +74,7 @@ public class FriendRequestServiceImpl implements FriendRequestService {
                     return false;
                 }
                 i.setStatus(3);
+                friendRequestDao.modifyFriendRequest(i);
                 return true;
             }
         }
@@ -61,6 +89,7 @@ public class FriendRequestServiceImpl implements FriendRequestService {
                     return false;
                 }
                 i.setStatus(2);
+                friendRequestDao.modifyFriendRequest(i);
                 return true;
             }
         }

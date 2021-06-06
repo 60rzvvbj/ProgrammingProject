@@ -26,6 +26,15 @@ public class PairingRequestServiceCHTImpl implements PairingRequestService {
 
     @Override
     public String addPairingRequest(String studentNumber, Map<String, Object> data) {   //添加配对请求
+        int flag = 0;
+        for(User i : userList){
+            if(i.getStudentNumber().equals(studentNumber)){
+                flag = 1;
+            }
+        }
+        if(flag == 0){
+            return "学号不存在";
+        }
         PairingRequest pairingRequest = new PairingRequest();
         String request = (String) data.get("request");
         Long startTime = System.currentTimeMillis();
