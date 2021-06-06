@@ -94,7 +94,7 @@ public class PairingRequestDaoImpl implements PairingRequestDao {
         } finally {
             close();
         }
-        return null;
+        return res;
     }
 
     private void close() {
