@@ -10,6 +10,7 @@ package service.impl;
  */
 
 import commom.factory.DaoFactory;
+import commom.factory.ListFactory;
 import dao.AdministratorDao;
 import dao.UserDao;
 import pojo.Administrator;
@@ -28,7 +29,7 @@ public class AdministratorServiceImpl implements AdministratorService {
         this.administratorDao = DaoFactory.getAdministratorDao();
         this.userDao = DaoFactory.getUserDao();
         this.administratorList = administratorDao.queryAllAdministrator();
-        this.userList = userDao.queryAllUser();
+        this.userList = ListFactory.getUserList();
     }
 
     @Override

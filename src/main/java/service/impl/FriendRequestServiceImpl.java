@@ -10,11 +10,14 @@ package service.impl;
  */
 
 import commom.factory.DaoFactory;
+import commom.factory.ListFactory;
+import commom.factory.ServiceFactory;
 import dao.FriendRequestDao;
 import dao.UserDao;
 import pojo.FriendRequest;
 import pojo.User;
 import service.FriendRequestService;
+import service.UserService;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -29,8 +32,8 @@ public class FriendRequestServiceImpl implements FriendRequestService {
     public FriendRequestServiceImpl() {
         this.friendRequestDao = DaoFactory.getFriendRequestDao();
         this.userDao = DaoFactory.getUserDao();
-        this.friendRequestList = friendRequestDao.queryAllFriendRequest();
-        this.userList = userDao.queryAllUser();
+        this.friendRequestList = ListFactory.getFriendRequestList();
+        this.userList = ListFactory.getUserList();
     }
 
     @Override
@@ -74,8 +77,13 @@ public class FriendRequestServiceImpl implements FriendRequestService {
                     return false;
                 }
                 i.setStatus(3);
-                friendRequestDao.modifyFriendRequest(i);
-                return true;
+                boolean u = friendRequestDao.modifyFriendRequest(i);
+                if(u){
+                    UserService userService = ServiceFactory.getUserService();
+                    userService.addFriend(i.getApplicant(), i.getRequested());
+                    return u;
+                }
+                return false;
             }
         }
         return false;

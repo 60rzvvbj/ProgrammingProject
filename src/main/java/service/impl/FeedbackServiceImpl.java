@@ -10,6 +10,7 @@ package service.impl;
  */
 
 import commom.factory.DaoFactory;
+import commom.factory.ListFactory;
 import dao.AdministratorDao;
 import dao.FeedbackDao;
 import dao.UserDao;
@@ -29,8 +30,8 @@ public class FeedbackServiceImpl implements FeedbackService {
     public FeedbackServiceImpl() {
         this.feedbackDao = DaoFactory.getFeedbackDao();
         this.userDao = DaoFactory.getUserDao();
-        this.feedbackList = feedbackDao.queryAllFeedback();
-        this.userList = userDao.queryAllUser();
+        this.feedbackList = ListFactory.getFeedbackList();
+        this.userList = ListFactory.getUserList();
     }
 
     @Override

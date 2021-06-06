@@ -1,6 +1,7 @@
 package service.impl;
 
 import commom.factory.DaoFactory;
+import commom.factory.ListFactory;
 import dao.PairingRequestDao;
 import dao.UserDao;
 import pojo.PairingRequest;
@@ -20,8 +21,8 @@ public class PairingRequestServiceCHTImpl implements PairingRequestService {
     public PairingRequestServiceCHTImpl() {
         this.pairingRequestDao = DaoFactory.getPairingRequestDao();
         this.userDao = DaoFactory.getUserDao();
-        this.pairingRequestList = pairingRequestDao.queryAllPairingRequest();
-        this.userList = userDao.queryAllUser();
+        this.pairingRequestList = ListFactory.getPairingRequestList();
+        this.userList = ListFactory.getUserList();
     }
 
     @Override
@@ -68,9 +69,10 @@ public class PairingRequestServiceCHTImpl implements PairingRequestService {
     public boolean removePairingRequest(String ID) {    //在数据库移除配对请求
         for (PairingRequest i : pairingRequestList) {
             if (i.getID().equals(ID)) {
-                pairingRequestDao.removePairingRequestByID(ID);
-                pairingRequestList.remove(i);
-                return true;
+                boolean u = pairingRequestDao.removePairingRequestByID(ID);
+                if(u){
+                    pairingRequestList.remove(i);
+                }
             }
         }
         return false;
