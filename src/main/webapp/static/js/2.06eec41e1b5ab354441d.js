@@ -1,0 +1,2 @@
+webpackJsonp([2],{AB7b:function(e,n){},"ook+":function(e,n,t){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var r={name:"Login",components:{Header:t("GgDs").a}},i={render:function(){var e=this.$createElement,n=this._self._c||e;return n("div",{staticClass:"loginMain"},[n("Header"),this._v(" "),n("router-view")],1)},staticRenderFns:[]};var s=t("VU/8")(r,i,!1,function(e){t("AB7b")},null,null);n.default=s.exports}});
+//# sourceMappingURL=2.06eec41e1b5ab354441d.js.map
