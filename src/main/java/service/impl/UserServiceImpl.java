@@ -112,7 +112,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> queryUser(String message) { // 查询用户，运用KMP算法
-        if(message == "" || message == null){
+        if (message == "" || message == null) {
             return list;
         }
         List<User> res = new ArrayList<>(); //创建一个集合，存放符合条件的用户
@@ -168,49 +168,73 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean addFriend(String sno1, String sno2) {
-        if(sno1.equals(sno2)){
+        if (sno1.equals(sno2)) {
             return false;
         }
         int flag1 = 0, flag2 = 0;
-        for(User i : list){
-            if(i.getStudentNumber().equals(sno1)){
+        User p = new User();
+        User q = new User(); //记录添加好友的两个用户分别是谁
+        for (User i : list) {
+            if (i.getStudentNumber().equals(sno1)) {
+                p = i;
                 flag1 = 1;
             }
-            if(i.getStudentNumber().equals(sno2)){
+            if (i.getStudentNumber().equals(sno2)) {
+                q = i;
                 flag2 = 1;
             }
-            if(flag1 == 1 && flag2 == 1){
+            if (flag1 == 1 && flag2 == 1) {
                 break;
             }
         }
-        if(flag1 == 1 && flag2 == 1) {
-            userDao.addFriend(sno1, sno2, System.currentTimeMillis());
-            return true;
+        if (flag1 == 1 && flag2 == 1) {
+            boolean u = userDao.addFriend(sno1, sno2, System.currentTimeMillis());
+            if (u) {
+                List<String> plist = p.getFriendList();
+                List<String> qlist = q.getFriendList();
+                plist.add(sno2);
+                qlist.add(sno1);
+                p.setFriendList(plist);
+                q.setFriendList(qlist);
+            }
+            return u;
         }
         return false;
     }
 
     @Override
     public boolean removeFriend(String sno1, String sno2) {
-        if(sno1.equals(sno2)){
+        if (sno1.equals(sno2)) {
             return false;
         }
         int flag1 = 0, flag2 = 0;
-        for(User i : list){
-            if(i.getStudentNumber().equals(sno1)){
+        User p = new User();
+        User q = new User(); //记录删除好友的两个用户分别是谁
+        for (User i : list) {
+            if (i.getStudentNumber().equals(sno1)) {
+                p = i;
                 flag1 = 1;
             }
-            if(i.getStudentNumber().equals(sno2)) {
+            if (i.getStudentNumber().equals(sno2)) {
+                q = i;
                 flag2 = 1;
             }
-                if(flag1 == 1 && flag2 == 1){
-                    break;
-                }
+            if (flag1 == 1 && flag2 == 1) {
+                break;
             }
-            if(flag1 == 1 && flag2 == 1) {
-                userDao.removeFriend(sno1, sno2);
-                return true;
+        }
+        if(flag1 == 1 && flag2 == 1) {
+            boolean u = userDao.addFriend(sno1, sno2, System.currentTimeMillis());
+            if(u){
+                List<String> plist = p.getFriendList();
+                List<String> qlist = q.getFriendList();
+                plist.remove(sno2);
+                qlist.remove(sno1);
+                p.setFriendList(plist);
+                q.setFriendList(qlist);
             }
+            return u;
+        }
         return false;
     }
 }
