@@ -26,7 +26,6 @@ public class PairingRequest {
         this.studentNumber = studentNumber;
         this.request = request;
         this.recipientNumber = recipientNumber;
-        this.startTime = System.currentTimeMillis();
     }
 
     public void setStudentNumber(String studentNumber) {

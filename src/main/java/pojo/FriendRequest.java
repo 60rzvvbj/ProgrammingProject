@@ -18,11 +18,11 @@ public class FriendRequest {
     public FriendRequest() {
     }
 
-    public FriendRequest(String requested, String applicant, int status) {
+    public FriendRequest(String requested, String applicant, int status, Long time) {
         this.requested = requested;
         this.applicant = applicant;
-        this.time = System.currentTimeMillis();
         this.status = status;
+        this.time = time;
     }
 
     public String getRequested() {
