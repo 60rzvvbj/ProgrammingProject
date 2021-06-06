@@ -62,7 +62,24 @@ public class InformationServiceImpl implements InformationService {
 
     @Override
     public boolean removeInformationService(String ID, String type) {
-
+        if(type.equals("FriendRequest")){
+            for(FriendRequest i : friendRequestList){
+                if(i.getRequestID().equals(ID)){
+                    friendRequestDao.removeFriendRequest(i);
+                    friendRequestList.remove(i);
+                    return true;
+                }
+            }
+        }
+        if(type.equals("PairingRequest")){
+            for(PairingRequest i : pairingRequestList){
+                if(i.getID().equals(ID)){
+                    pairingRequestDao.removePairingRequestByID(ID);
+                    pairingRequestList.remove(i);
+                    return true;
+                }
+            }
+        }
         return false;
     }
 }
