@@ -13,6 +13,7 @@ import commom.factory.ListFactory;
 import dao.UserDao;
 import pojo.User;
 import service.UserService;
+import util.AlgorithmUtil;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -117,29 +118,10 @@ public class UserServiceImpl implements UserService {
             return list;
         }
         List<User> res = new ArrayList<>(); //创建一个集合，存放符合条件的用户
-        int m = message.length();
-        int[] ne = new int[m];
-        ne[0] = -1;
-        char[] k = message.toCharArray();
-        for (int i = 1, j = -1; i < m; i++) { //求next数组
-            while (j >= 0 && k[j + 1] != k[i]) j = ne[j];
-            if (k[j + 1] == k[i]) j++;
-            ne[i] = j;
-        }
         for (User u : list) { //遍历所有的用户
             String p = u.getUsername();
-            int n = p.length();
-            char[] s = new char[n + 1];
-            for (int i = 0; i < n; i++) {
-                s[i] = p.charAt(i);
-            }
-            for (int i = 0, j = -1; i < n; i++) {
-                while (j != -1 && s[i] != k[j + 1]) j = ne[j];
-                if (s[i] == k[j + 1]) j++;
-                if (j == m - 1) {
-                    res.add(u);
-                    break;
-                }
+            if(AlgorithmUtil.KMP(message, p)){
+                res.add(u);
             }
             if (u.getStudentNumber().equals(message)) {
                 res.add(u);

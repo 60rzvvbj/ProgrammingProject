@@ -2,11 +2,15 @@ package service.impl;
 
 import commom.factory.DaoFactory;
 import commom.factory.ListFactory;
+import commom.factory.ServiceFactory;
 import dao.PairingRequestDao;
 import dao.UserDao;
+import pojo.FriendRequest;
 import pojo.PairingRequest;
 import pojo.User;
+import service.FriendRequestService;
 import service.PairingRequestService;
+import util.AlgorithmUtil;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -28,12 +32,12 @@ public class PairingRequestServiceCHTImpl implements PairingRequestService {
     @Override
     public String addPairingRequest(String studentNumber, Map<String, Object> data) {   //添加配对请求
         int flag = 0;
-        for(User i : userList){
-            if(i.getStudentNumber().equals(studentNumber)){
+        for (User i : userList) {
+            if (i.getStudentNumber().equals(studentNumber)) {
                 flag = 1;
             }
         }
-        if(flag == 0){
+        if (flag == 0) {
             return "学号不存在";
         }
         PairingRequest pairingRequest = new PairingRequest();
@@ -55,14 +59,40 @@ public class PairingRequestServiceCHTImpl implements PairingRequestService {
     }
 
     @Override
-    public List<PairingRequest> queryUserPairing(String studentNumber) {    //查询某用户的请求配对信息
-        List<PairingRequest> list = new LinkedList<>();
-        for (PairingRequest i : pairingRequestList) {
-            if (i.getStudentNumber().equals(studentNumber)) {
-                list.add(i);
+    public List<PairingRequest> queryUserPairing(String studentNumber, String type, String search) {    //查询某用户的请求配对信息
+        List<PairingRequest> includeList = new LinkedList<>();
+        List<PairingRequest> excludeList = new LinkedList<>();
+        if (type.equals("include")) { //自己发的配对请求
+            for (PairingRequest i : pairingRequestList) {
+                if (i.getStatus() == 1) continue;
+                if (i.getStudentNumber().equals(studentNumber)) {
+                    if (search.equals("")) {  //如果查询的内容为空，就把自己发的都加进去
+                        includeList.add(i);
+                    } else {
+                        if (AlgorithmUtil.KMP(search, i.getRequest())) {  //如果查询的内容不为空，就把匹配的加进去
+                            includeList.add(i);
+                        }
+                    }
+                }
             }
+            return includeList;
+        } else if (type.equals("exclude")) {    //别人发的配对请求
+            for (PairingRequest i : pairingRequestList) {
+                if (i.getStatus() == 1) continue;
+                if (search.equals("")) {  //如果查询的内容为空，就把别人发的都加进去
+                    excludeList.add(i);
+                } else {
+                    if (AlgorithmUtil.KMP(search, i.getRequest())) {  //如果查询的内容不为空，就把匹配的加进去
+                        excludeList.add(i);
+                    }
+                    if (i.getStudentNumber().equals(search)) {    //如果查询的内容是一个学号，就把这个学号发的配对加进去
+                        excludeList.add(i);
+                    }
+                }
+            }
+            return excludeList;
         }
-        return list;
+        return null;
     }
 
     @Override
@@ -70,7 +100,7 @@ public class PairingRequestServiceCHTImpl implements PairingRequestService {
         for (PairingRequest i : pairingRequestList) {
             if (i.getID().equals(ID)) {
                 boolean u = pairingRequestDao.removePairingRequestByID(ID);
-                if(u){
+                if (u) {
                     pairingRequestList.remove(i);
                 }
             }
@@ -85,9 +115,12 @@ public class PairingRequestServiceCHTImpl implements PairingRequestService {
                 if (i.getStatus() == 1) {
                     return false;
                 }
+                String studentNumber = i.getStudentNumber();
                 i.setStatus(1);
                 i.setRecipientNumber(acceptNumber);
                 pairingRequestDao.modifyPairingRequest(i);
+                FriendRequestService friendRequestService = ServiceFactory.getFriendRequestService();
+                friendRequestService.addFriend(acceptNumber, studentNumber);
                 return true;
             }
         }
