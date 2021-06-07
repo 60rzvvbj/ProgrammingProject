@@ -12,7 +12,7 @@ public interface PairingRequestService {
      * <p><b>功能：</b></p><br>发起配对
      *
      * @param studentNumber 发起人学号
-     * @param data 数据
+     * @param data          数据
      * @return 配对ID
      * @author 60rzvvbj
      * @date 2021/5/25
@@ -34,17 +34,19 @@ public interface PairingRequestService {
      * <p><b>功能：</b></p><br>查询某个人的配对
      *
      * @param studentNumber 学号
+     * @param type          类型(include, exclude) 包含或不包含
+     * @param search 搜索内容
      * @return 某个人的配对列表
      * @author 60rzvvbj
      * @date 2021/5/25
      */
-    List<PairingRequest> queryUserPairing(String studentNumber);
+    List<PairingRequest> queryUserPairing(String studentNumber, String type, String search);
 
     /**
      * <p><b>方法名：</b>{@code removePairingRequest}</p>
      * <p><b>功能：</b></p><br>删除配对
      *
-     * @param ID            配对ID
+     * @param ID 配对ID
      * @return 是否成功
      * @author 60rzvvbj
      * @date 2021/5/27

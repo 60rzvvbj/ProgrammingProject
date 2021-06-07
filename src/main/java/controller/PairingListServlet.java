@@ -30,18 +30,20 @@ public class PairingListServlet extends HttpServlet {
         UserService userService = new UserServiceImpl();
 
         String sno = req.getParameter("sno");
+        String type = req.getParameter("type");
+        String search = req.getParameter("search");
         List<PairingRequest> list;
 
         if (sno == null) {
             list = pairingRequestService.queryPairingRequest();
         } else {
-            list = pairingRequestService.queryUserPairing(sno);
+            list = pairingRequestService.queryUserPairing(sno, type, search);
         }
 
         Map<String, Object> map = new HashMap<>();
         List<Object> res = new LinkedList<>();
         for (PairingRequest pairingRequest : list) {
-            if (pairingRequest.getRecipientNumber() == null) {
+            if (pairingRequest.getRecipientNumber() != null) {
                 continue;
             }
             Map<String, Object> pr = new HashMap<>();
@@ -59,26 +61,4 @@ public class PairingListServlet extends HttpServlet {
         resp.getWriter().write(JsonUtil.mapToJson(map));
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // 添加配对
-        String sno = req.getParameter("sno");
-        String content = req.getParameter("content");
-
-        System.out.println(sno);
-        System.out.println(content);
-
-        Map<String, Object> data = new HashMap<>();
-        data.put("request", content);
-
-        PairingRequestService pairingRequestService = ServiceFactory.getPairingRequestService();
-
-        String id = pairingRequestService.addPairingRequest(sno, data);
-        System.out.println("id:" + id);
-        Map<String, Object> map = new HashMap<>();
-        boolean status = (id != null && !id.equals("学号不存在"));
-        map.put("status", status);
-
-        resp.getWriter().write(JsonUtil.mapToJson(map));
-    }
 }

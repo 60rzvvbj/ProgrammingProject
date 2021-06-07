@@ -38,7 +38,7 @@ public class PairingRequestServiceImpl implements PairingRequestService {
     }
 
     @Override
-    public List<PairingRequest> queryUserPairing(String studentNumber) {
+    public List<PairingRequest> queryUserPairing(String studentNumber, String type, String search) {
         //建立一个列表，用来存放个人的配对信息
         List<PairingRequest> list1 = new ArrayList<>();
         for (PairingRequest p : list) {
