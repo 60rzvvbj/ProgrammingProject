@@ -7,6 +7,7 @@ import util.JDBCUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -25,7 +26,26 @@ public class PairingRequestDaoImpl implements PairingRequestDao {
 
     @Override
     public String addPairingRequest(PairingRequest pairingRequest) {
-        return null;
+        String res = null;
+        try {
+            connection = JDBCUtil.getConnection();
+            String sql = "insert into pairingreq(reqsno, reqtime, content, status) values(?, ?, ?, ?)";
+            preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, pairingRequest.getStudentNumber());
+            preparedStatement.setLong(2, pairingRequest.getStartTime());
+            preparedStatement.setString(3, pairingRequest.getRequest());
+            preparedStatement.setInt(4, pairingRequest.getStatus());
+            int line = preparedStatement.executeUpdate();
+            resultSet = preparedStatement.getGeneratedKeys();
+            if (resultSet.next()) {
+                res = resultSet.getString(1);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            close();
+        }
+        return res;
     }
 
     @Override

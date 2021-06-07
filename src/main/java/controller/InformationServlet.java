@@ -28,7 +28,6 @@ public class InformationServlet extends HttpServlet {
         InformationService informationService = ServiceFactory.getInformationService();
         UserService userService = ServiceFactory.getUserService();
         List<Object> infoList = informationService.queryAllInformation(sno);
-        System.out.println(infoList);
 
         Map<String, Object> map = new HashMap<>();
         List<Object> list = new LinkedList<>();
