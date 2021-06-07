@@ -63,5 +63,5 @@ public interface PairingRequestService {
      * @author 60rzvvbj
      * @date 2021/5/27
      */
-    boolean acceptPairing(String acceptNumber, String ID);
+    boolean acceptPairing(String acceptNumber, String ID) throws Exception;
 }

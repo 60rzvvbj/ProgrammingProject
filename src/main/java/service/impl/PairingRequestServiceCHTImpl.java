@@ -79,6 +79,7 @@ public class PairingRequestServiceCHTImpl implements PairingRequestService {
         } else if (type.equals("exclude")) {    //别人发的配对请求
             for (PairingRequest i : pairingRequestList) {
                 if (i.getStatus() == 1) continue;
+                if(i.getStudentNumber().equals(studentNumber)) continue;
                 if (search.equals("")) {  //如果查询的内容为空，就把别人发的都加进去
                     excludeList.add(i);
                 } else {
@@ -109,9 +110,19 @@ public class PairingRequestServiceCHTImpl implements PairingRequestService {
     }
 
     @Override
-    public boolean acceptPairing(String acceptNumber, String ID) {  //某用户接受别人的配对请求，在数据库更新特定配对请求的接受人信息
+    public boolean acceptPairing(String acceptNumber, String ID) throws Exception {  //某用户接受别人的配对请求，在数据库更新特定配对请求的接受人信息
         for (PairingRequest i : pairingRequestList) {
             if (i.getID().equals(ID)) {
+                for(User j: userList){
+                    if(j.getStudentNumber().equals(i.getStudentNumber())){
+                        List<String> friendList = j.getFriendList();
+                        for(String k : friendList){
+                            if(k.equals(acceptNumber)){
+                                throw new Exception("你们两个人已经是好友了");
+                            }
+                        }
+                    }
+                }
                 if (i.getStatus() == 1) {
                     return false;
                 }

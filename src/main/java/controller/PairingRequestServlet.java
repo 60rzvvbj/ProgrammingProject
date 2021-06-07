@@ -43,7 +43,12 @@ public class PairingRequestServlet extends HttpServlet {
         String id = req.getParameter("id");
 
         PairingRequestService pairingRequestService = ServiceFactory.getPairingRequestService();
-        boolean status = pairingRequestService.acceptPairing(sno, id);
+        boolean status = false;
+        try {
+            status = pairingRequestService.acceptPairing(sno, id);
+        } catch (Exception e) {
+            e.toString();
+        }
 
         Map<String, Object> map = new HashMap<>();
         map.put("status", status);
