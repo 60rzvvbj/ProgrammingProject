@@ -58,4 +58,4 @@ out/
 hs_err_pid*
 
 # 数据库配置文件
-druid.properties
+src/main/resources/druid.properties
