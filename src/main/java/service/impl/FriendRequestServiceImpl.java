@@ -13,8 +13,10 @@ import commom.factory.DaoFactory;
 import commom.factory.ListFactory;
 import commom.factory.ServiceFactory;
 import dao.FriendRequestDao;
+import dao.PairingRequestDao;
 import dao.UserDao;
 import pojo.FriendRequest;
+import pojo.PairingRequest;
 import pojo.User;
 import service.FriendRequestService;
 import service.UserService;
@@ -25,15 +27,20 @@ import java.util.List;
 
 public class FriendRequestServiceImpl implements FriendRequestService {
     private final FriendRequestDao friendRequestDao;
+    private final PairingRequestDao pairingRequestDao;
     private final UserDao userDao;
     private final List<FriendRequest> friendRequestList;
+    private final List<PairingRequest> pairingRequestList;
     private final List<User> userList;
+
 
     public FriendRequestServiceImpl() {
         this.friendRequestDao = DaoFactory.getFriendRequestDao();
+        this.pairingRequestDao = DaoFactory.getPairingRequestDao();
         this.userDao = DaoFactory.getUserDao();
         this.friendRequestList = ListFactory.getFriendRequestList();
         this.userList = ListFactory.getUserList();
+        this.pairingRequestList = ListFactory.getPairingRequestList();
     }
 
     @Override
@@ -94,6 +101,15 @@ public class FriendRequestServiceImpl implements FriendRequestService {
 
     @Override
     public boolean refuseRequest(String friendRequestID, String pairingRequestID) {  //拒绝好友请求
+        if(pairingRequestID != null){
+            for(PairingRequest i : pairingRequestList){
+                if(i.getID().equals(pairingRequestID)){
+                    i.setStatus(0);
+                    i.setRecipientNumber(null);
+                    pairingRequestDao.modifyPairingRequest(i);
+                }
+            }
+        }
         for (FriendRequest i : friendRequestList) {
             if (i.getRequestID().equals(friendRequestID)) {
                 if (i.getStatus() == 2 || i.getStatus() == 3) {
