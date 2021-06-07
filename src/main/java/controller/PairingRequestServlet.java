@@ -28,7 +28,6 @@ public class PairingRequestServlet extends HttpServlet {
         PairingRequestService pairingRequestService = ServiceFactory.getPairingRequestService();
 
         String id = pairingRequestService.addPairingRequest(sno, data);
-        System.out.println("id:" + id);
         Map<String, Object> map = new HashMap<>();
         boolean status = (id != null && !id.equals("学号不存在"));
         map.put("status", status);
@@ -44,14 +43,17 @@ public class PairingRequestServlet extends HttpServlet {
 
         PairingRequestService pairingRequestService = ServiceFactory.getPairingRequestService();
         boolean status = false;
+        Map<String, Object> map = new HashMap<>();
+
         try {
             status = pairingRequestService.acceptPairing(sno, id);
         } catch (Exception e) {
-            e.toString();
+            map.put("message", e.getMessage());
         }
-
-        Map<String, Object> map = new HashMap<>();
         map.put("status", status);
+        if (!status && map.get("message") == null) {
+            map.put("message", "接受配对失败");
+        }
 
         resp.getWriter().write(JsonUtil.mapToJson(map));
     }

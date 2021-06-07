@@ -50,17 +50,17 @@ public class InformationServlet extends HttpServlet {
                 info.put("res", userService.queryUserByStudentNumber(friendRequest.getRequested()).getUsername());
                 info.put("status", friendRequest.getStatus());
                 list.add(info);
-            } else if (className.endsWith("FriendRequest")) {
+            } else if (className.endsWith("List")) {
                 List<Object> oList = (List<Object>)o;
                 PairingRequest pairingRequest = (PairingRequest) oList.get(0);
                 String friendreqID = (String) oList.get(1);
                 Map<String, Object> info = new HashMap<>();
-                map.put("pid", pairingRequest.getID());
-                map.put("id", friendreqID);
+                info.put("pid", pairingRequest.getID());
+                info.put("id", friendreqID);
                 if (pairingRequest.getStudentNumber().equals(sno) && pairingRequest.getStatus() == 1) {
                     info.put("type", 3); // 有人接了我的单
-                    map.put("res", userService.queryUserByStudentNumber(pairingRequest.getRecipientNumber()).getUsername());
-                    map.put("status", pairingRequest.getStatus());
+                    info.put("res", userService.queryUserByStudentNumber(pairingRequest.getRecipientNumber()).getUsername());
+                    info.put("status", pairingRequest.getStatus());
                 } else {
                     continue;
                 }

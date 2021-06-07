@@ -43,7 +43,7 @@ public class FriendRequestServlet extends HttpServlet {
         if (inpStatus.equals("true")) {
             status = friendRequestService.acceptRequest(id);
         } else {
-            status = friendRequestService.refuseRequest(id);
+            status = friendRequestService.refuseRequest(id, null);
         }
 
         Map<String, Object> map = new HashMap<>();

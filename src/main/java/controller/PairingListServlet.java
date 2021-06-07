@@ -25,13 +25,14 @@ public class PairingListServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         // 查询配对
-        PairingRequestService pairingRequestService = new PairingRequestServiceImpl();
-        UserService userService = new UserServiceImpl();
+        PairingRequestService pairingRequestService = ServiceFactory.getPairingRequestService();
+        UserService userService = ServiceFactory.getUserService();
 
         String sno = req.getParameter("sno");
         String type = req.getParameter("type");
-        String search = req.getParameter("search");
+        String search = req.getParameter("content");
         List<PairingRequest> list;
 
         if (sno == null) {

@@ -38,7 +38,7 @@ public interface FriendRequestService {
      * @author 60rzvvbj
      * @date 2021/5/25
      */
-    boolean refuseRequest(String friendRequestID);
+    boolean refuseRequest(String friendRequestID, String pairingRequestID);
 
     /**
      * <p><b>方法名：</b>{@code queryRequest}</p>

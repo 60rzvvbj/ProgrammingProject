@@ -50,7 +50,7 @@ public class JsonUtil {
             } else if (type.endsWith("List")) {
                 res += listToJson((List<Object>) value);
             } else if (type.equals("String")) {
-                res += "\"" + value + "\"";
+                res += "\"" + ((String) value).replaceAll("\n", "\\\\n") + "\"";
             } else {
                 res += value;
             }

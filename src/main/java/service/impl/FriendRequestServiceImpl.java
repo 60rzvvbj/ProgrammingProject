@@ -93,7 +93,7 @@ public class FriendRequestServiceImpl implements FriendRequestService {
     }
 
     @Override
-    public boolean refuseRequest(String friendRequestID) {  //拒绝好友请求
+    public boolean refuseRequest(String friendRequestID, String pairingRequestID) {  //拒绝好友请求
         for (FriendRequest i : friendRequestList) {
             if (i.getRequestID().equals(friendRequestID)) {
                 if (i.getStatus() == 2 || i.getStatus() == 3) {
