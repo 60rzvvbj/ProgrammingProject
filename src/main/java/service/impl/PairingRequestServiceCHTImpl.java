@@ -38,7 +38,7 @@ public class PairingRequestServiceCHTImpl implements PairingRequestService {
         }
         PairingRequest pairingRequest = new PairingRequest();
         String request = (String) data.get("request");
-        Long startTime = System.currentTimeMillis();
+        long startTime = System.currentTimeMillis();
         pairingRequest.setStudentNumber(studentNumber);
         pairingRequest.setRequest(request);
         pairingRequest.setStartTime(startTime);

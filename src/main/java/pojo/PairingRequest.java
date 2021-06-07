@@ -45,7 +45,7 @@ public class PairingRequest {
     }
 
     public void setStartTime(long startTime) {
-        this.startTime = System.currentTimeMillis();
+        this.startTime = startTime;
     }
 
     public long getStartTime() {
