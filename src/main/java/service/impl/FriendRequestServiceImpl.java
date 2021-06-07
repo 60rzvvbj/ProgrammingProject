@@ -66,6 +66,7 @@ public class FriendRequestServiceImpl implements FriendRequestService {
             }
         }
         FriendRequest friendRequest = new FriendRequest(applicant, requested, 1, System.currentTimeMillis());
+        friendRequestList.add(friendRequest);
         return friendRequestDao.addFriendRequest(friendRequest);
     }
 

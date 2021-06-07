@@ -32,7 +32,7 @@ public class EncodingFilter implements Filter {
         // 防止乱码
         resp.setCharacterEncoding("UTF-8");
         // 接口设置json头
-        resp.setContentType("application/json;charset=UTF-8");
+//        resp.setContentType("application/json;charset=UTF-8");
 
         /* 允许跨域的主机地址 */
         resp.setHeader("Access-Control-Allow-Origin", "*");
