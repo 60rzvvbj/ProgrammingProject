@@ -25,7 +25,6 @@ public class PairingListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // 查询配对
-
         PairingRequestService pairingRequestService = new PairingRequestServiceImpl();
         UserService userService = new UserServiceImpl();
 
@@ -62,5 +61,6 @@ public class PairingListServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // 添加配对
+//        String
     }
 }

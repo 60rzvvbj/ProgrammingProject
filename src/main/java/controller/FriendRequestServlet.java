@@ -33,12 +33,18 @@ public class FriendRequestServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // 接受好友请求
+        // 相应好友请求
         String id = req.getParameter("id");
+        String inpStatus = req.getParameter("status");
 
         FriendRequestService friendRequestService = ServiceFactory.getFriendRequestService();
 
-        boolean status = friendRequestService.acceptRequest(id);
+        boolean status;
+        if (inpStatus.equals("true")) {
+            status = friendRequestService.acceptRequest(id);
+        } else {
+            status = friendRequestService.refuseRequest(id);
+        }
 
         Map<String, Object> map = new HashMap<>();
         map.put("status", status);

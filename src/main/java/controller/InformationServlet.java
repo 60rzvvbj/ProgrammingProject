@@ -28,12 +28,14 @@ public class InformationServlet extends HttpServlet {
         InformationService informationService = ServiceFactory.getInformationService();
         UserService userService = ServiceFactory.getUserService();
         List<Object> infoList = informationService.queryAllInformation(sno);
+        System.out.println(infoList);
 
         Map<String, Object> map = new HashMap<>();
         List<Object> list = new LinkedList<>();
 
         for (Object o : infoList) {
-            if (o.getClass().equals(FriendRequest.class)) {
+            String className = o.getClass().getSimpleName();
+            if (className.equals("FriendRequest")) {
                 FriendRequest friendRequest = (FriendRequest) o;
                 Map<String, Object> info = new HashMap<>();
                 info.put("id", friendRequest.getRequestID());
@@ -49,10 +51,13 @@ public class InformationServlet extends HttpServlet {
                 info.put("res", userService.queryUserByStudentNumber(friendRequest.getRequested()).getUsername());
                 info.put("status", friendRequest.getStatus());
                 list.add(info);
-            } else if (o.getClass().equals(PairingRequest.class)) {
-                PairingRequest pairingRequest = (PairingRequest) o;
+            } else if (className.endsWith("FriendRequest")) {
+                List<Object> oList = (List<Object>)o;
+                PairingRequest pairingRequest = (PairingRequest) oList.get(0);
+                String friendreqID = (String) oList.get(1);
                 Map<String, Object> info = new HashMap<>();
-                map.put("id", pairingRequest.getID());
+                map.put("pid", pairingRequest.getID());
+                map.put("id", friendreqID);
                 if (pairingRequest.getStudentNumber().equals(sno) && pairingRequest.getStatus() == 1) {
                     info.put("type", 3); // 有人接了我的单
                     map.put("res", userService.queryUserByStudentNumber(pairingRequest.getRecipientNumber()).getUsername());

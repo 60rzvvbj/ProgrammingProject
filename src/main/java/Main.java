@@ -17,7 +17,9 @@ public class Main {
 //        userService.addFriend("191543132", "191543108");
 //        userService.addFriend("191543132", "191543109");
         InformationService informationService = ServiceFactory.getInformationService();
-        System.out.println(informationService.queryAllInformation("191543107"));
+        System.out.println(informationService.queryAllInformation("191543130"));
+
+
     }
 
 }
