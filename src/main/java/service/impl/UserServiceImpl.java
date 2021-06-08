@@ -135,16 +135,32 @@ public class UserServiceImpl implements UserService {
         List<User> userList = new LinkedList<>();
         for (User i : list) {
             if (i.getStudentNumber().equals(studentNumber)) {
-                List<String> stringList = i.getFriendList();
-                for (String j : stringList) {
-                    for (User k : list) {
-                        if (k.getStudentNumber().equals(j)) {
+                List<String> stringList = i.getFriendList();    //获取好友列表
+                for (User k : list) {   //遍历所有的用户
+                    int flag = 0;
+                    if(message == null) flag = 1;
+                    else flag = 2;
+                    for (String j : stringList) {
+                        if (flag == 1 && k.getStudentNumber().equals(j)) {    //如果传入的是空，就找他所有的好友
+                            flag = 3;
+                            break;
+                        }
+                        else if (flag == 2){    //如果传入的不是空，就找不是他好友的用户中，符合条件的
+                            if (j.equals(message) || (k.getStudentNumber().equals(j) && AlgorithmUtil.KMP(message, k.getUsername()))){
+                                flag = 0;   //这些都是它好友里边符合条件的
+                                break;
+                            }
+                        }
+                    }
+                    if(flag == 3) userList.add(k);
+                    else if(flag == 2){
+                        if(k.getStudentNumber().equals(message) || AlgorithmUtil.KMP(message, k.getUsername())){
                             userList.add(k);
                         }
                     }
                 }
-                return userList;
             }
+            return userList;
         }
         return null;
     }
