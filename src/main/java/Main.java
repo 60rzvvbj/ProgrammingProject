@@ -13,16 +13,8 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-//        UserService userService = ServiceFactory.getUserService();
-//        userService.addFriend("191543132", "191543107");
-//        userService.addFriend("191543132", "191543108");
-//        userService.addFriend("191543132", "191543109");
-        InformationService informationService = ServiceFactory.getInformationService();
-        System.out.println(informationService.queryAllInformation("191543130"));
-//        PairingRequestService pairingRequestService = ServiceFactory.getPairingRequestService();
-//        System.out.println(pairingRequestService.queryUserPairing("191543132", "exclude", ""));
-
-
+        UserService userService = ServiceFactory.getUserService();
+        System.out.println(userService.queryFriendList("191543132", null));
     }
 
 }
