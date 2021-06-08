@@ -131,7 +131,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> queryFriendList(String studentNumber) { //查询某用户的好友列表
+    public List<User> queryFriendList(String studentNumber, String message) { //查询某用户的好友列表
         List<User> userList = new LinkedList<>();
         for (User i : list) {
             if (i.getStudentNumber().equals(studentNumber)) {

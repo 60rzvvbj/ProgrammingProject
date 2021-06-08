@@ -25,8 +25,10 @@ public class FriendListServlet extends HttpServlet {
 
         // 获取好友列表
         String sno = req.getParameter("sno");
+        String message = req.getParameter("message");
+
         UserService userService = ServiceFactory.getUserService();
-        List<User> friendList = userService.queryFriendList(sno);
+        List<User> friendList = userService.queryFriendList(sno, message);
         Map<String, Object> map = new HashMap<>();
         List<Object> list = new LinkedList<>();
         for (User user: friendList){

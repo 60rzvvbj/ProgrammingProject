@@ -84,11 +84,12 @@ public interface UserService {
      * <p><b>功能：</b></p><br>查看好友列表
      *
      * @param studentNumber 学好
+     * @param message 搜索信息，不为空则代表要查找不认识的人
      * @return 好有列表
      * @author 60rzvvbj
      * @date 2021/5/24
      */
-    List<User> queryFriendList(String studentNumber);
+    List<User> queryFriendList(String studentNumber, String message);
 
     /**
      * <p><b>方法名：</b>{@code addFriend}</p>

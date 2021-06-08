@@ -36,6 +36,7 @@ public class FriendRequestServlet extends HttpServlet {
         // 相应好友请求
         String id = req.getParameter("id");
         String inpStatus = req.getParameter("status");
+        String pid = req.getParameter("pid");
 
         FriendRequestService friendRequestService = ServiceFactory.getFriendRequestService();
 
@@ -43,7 +44,7 @@ public class FriendRequestServlet extends HttpServlet {
         if (inpStatus.equals("true")) {
             status = friendRequestService.acceptRequest(id);
         } else {
-            status = friendRequestService.refuseRequest(id, null);
+            status = friendRequestService.refuseRequest(id, pid);
         }
 
         Map<String, Object> map = new HashMap<>();

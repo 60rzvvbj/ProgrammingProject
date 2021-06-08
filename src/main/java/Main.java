@@ -5,6 +5,7 @@ import dao.UserDao;
 import dao.impl.UserDaoImpl;
 import service.FriendRequestService;
 import service.InformationService;
+import service.PairingRequestService;
 import service.UserService;
 import util.JsonUtil;
 
@@ -18,6 +19,8 @@ public class Main {
 //        userService.addFriend("191543132", "191543109");
         InformationService informationService = ServiceFactory.getInformationService();
         System.out.println(informationService.queryAllInformation("191543130"));
+//        PairingRequestService pairingRequestService = ServiceFactory.getPairingRequestService();
+//        System.out.println(pairingRequestService.queryUserPairing("191543132", "exclude", ""));
 
 
     }
