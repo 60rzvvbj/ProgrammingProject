@@ -139,7 +139,7 @@ public class UserServiceImpl implements UserService {
                 for (User k : list) {   //遍历所有的用户
                     int flag = 0;
                     if(message != null){
-                        if(k.getStudentNumber().equals(message) || AlgorithmUtil.KMP(message, k.getUsername())) {
+                        if(k.getStudentNumber().equals(message) || AlgorithmUtil.KMP(message, k.getUsername()) || message == "") {
                             flag = 1;
                         }
                     }
