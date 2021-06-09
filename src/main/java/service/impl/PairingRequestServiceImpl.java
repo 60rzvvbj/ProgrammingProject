@@ -22,14 +22,14 @@ public class PairingRequestServiceImpl implements PairingRequestService {
     }
 
     @Override
-    public String addPairingRequest(String studentNumber, Map<String, Object> data) {
+    public PairingRequest addPairingRequest(String studentNumber, Map<String, Object> data) {
         PairingRequest pairingRequest = new PairingRequest();
         //获取请求
         String request = (String) data.get("request");
         pairingRequest.setRequest(request);
         pairingRequest.setStudentNumber(studentNumber);
         //还要获取ID
-        return pairingRequest.getID();
+        return pairingRequest;
     }
 
     @Override

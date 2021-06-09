@@ -30,7 +30,7 @@ public class PairingRequestServiceCHTImpl implements PairingRequestService {
     }
 
     @Override
-    public String addPairingRequest(String studentNumber, Map<String, Object> data) {   //添加配对请求
+    public PairingRequest addPairingRequest(String studentNumber, Map<String, Object> data) {   //添加配对请求
         int flag = 0;
         for (User i : userList) {
             if (i.getStudentNumber().equals(studentNumber)) {
@@ -38,7 +38,9 @@ public class PairingRequestServiceCHTImpl implements PairingRequestService {
             }
         }
         if (flag == 0) {
-            return "学号不存在";
+            PairingRequest pairingRequest = new PairingRequest();
+            pairingRequest.setID("学号不存在");
+            return pairingRequest;
         }
         PairingRequest pairingRequest = new PairingRequest();
         String request = (String) data.get("request");
@@ -50,7 +52,7 @@ public class PairingRequestServiceCHTImpl implements PairingRequestService {
         String ID = pairingRequestDao.addPairingRequest(pairingRequest);
         pairingRequest.setID(ID);
         pairingRequestList.add(pairingRequest);
-        return ID;
+        return pairingRequest;
     }
 
     @Override

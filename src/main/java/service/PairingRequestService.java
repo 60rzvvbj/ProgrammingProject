@@ -13,11 +13,11 @@ public interface PairingRequestService {
      *
      * @param studentNumber 发起人学号
      * @param data          数据
-     * @return 配对ID
+     * @return 配对
      * @author 60rzvvbj
      * @date 2021/5/25
      */
-    String addPairingRequest(String studentNumber, Map<String, Object> data);
+    PairingRequest addPairingRequest(String studentNumber, Map<String, Object> data);
 
     /**
      * <p><b>方法名：</b>{@code queryPairingRequest}</p>

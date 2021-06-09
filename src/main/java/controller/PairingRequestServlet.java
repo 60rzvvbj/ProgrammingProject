@@ -1,6 +1,7 @@
 package controller;
 
 import commom.factory.ServiceFactory;
+import pojo.PairingRequest;
 import service.PairingRequestService;
 import util.JsonUtil;
 
@@ -26,11 +27,19 @@ public class PairingRequestServlet extends HttpServlet {
         data.put("request", content);
 
         PairingRequestService pairingRequestService = ServiceFactory.getPairingRequestService();
-
-        String id = pairingRequestService.addPairingRequest(sno, data);
+        PairingRequest pairingRequest = pairingRequestService.addPairingRequest(sno, data);
         Map<String, Object> map = new HashMap<>();
-        boolean status = (id != null && !id.equals("学号不存在"));
+
+        boolean status = (pairingRequest.getID() != null && !pairingRequest.getID() .equals("学号不存在"));
+
         map.put("status", status);
+        if (status) {
+            map.put("id", pairingRequest.getID());
+            map.put("time", pairingRequest.getStartTime());
+            map.put("username", ServiceFactory.getUserService().queryUserByStudentNumber(sno).getUsername());
+        } else {
+            map.put("message", pairingRequest.getID());
+        }
 
         resp.getWriter().write(JsonUtil.mapToJson(map));
     }
