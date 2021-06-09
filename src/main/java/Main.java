@@ -16,5 +16,4 @@ public class Main {
         UserService userService = ServiceFactory.getUserService();
         System.out.println(userService.queryFriendList("191543132", null));
     }
-
 }

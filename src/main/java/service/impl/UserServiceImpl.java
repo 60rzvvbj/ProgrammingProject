@@ -120,7 +120,7 @@ public class UserServiceImpl implements UserService {
         List<User> res = new ArrayList<>(); //创建一个集合，存放符合条件的用户
         for (User u : list) { //遍历所有的用户
             String p = u.getUsername();
-            if(AlgorithmUtil.KMP(message, p)){
+            if (AlgorithmUtil.KMP(message, p)) {
                 res.add(u);
             }
             if (u.getStudentNumber().equals(message)) {
@@ -138,8 +138,8 @@ public class UserServiceImpl implements UserService {
                 List<String> stringList = i.getFriendList();    //获取好友列表
                 for (User k : list) {   //遍历所有的用户
                     int flag = 0;
-                    if(message != null){
-                        if(k.getStudentNumber().equals(message) || AlgorithmUtil.KMP(message, k.getUsername()) || message.equals("")) {
+                    if (message != null) {
+                        if (k.getStudentNumber().equals(message) || AlgorithmUtil.KMP(message, k.getUsername()) || message.equals("")) {
                             flag = 1;
                         }
                     }
@@ -148,17 +148,17 @@ public class UserServiceImpl implements UserService {
                             userList.add(k);
                             break;
                         }
-                        else if (flag == 1 && k.getStudentNumber().equals(j)){
+                        else if (flag == 1 && k.getStudentNumber().equals(j)) {
                             flag = 0;
                             break;
                         }
                     }
-                    if(flag == 1){
+                    if (flag == 1) {
                         userList.add(k);
                     }
                 }
+                return userList;
             }
-            return userList;
         }
         return null;
     }
@@ -220,9 +220,9 @@ public class UserServiceImpl implements UserService {
                 break;
             }
         }
-        if(flag1 == 1 && flag2 == 1) {
+        if (flag1 == 1 && flag2 == 1) {
             boolean u = userDao.removeFriend(sno1, sno2);
-            if(u){
+            if (u) {
                 List<String> plist = p.getFriendList();
                 List<String> qlist = q.getFriendList();
                 plist.remove(sno2);
