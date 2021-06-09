@@ -57,4 +57,17 @@ public class PairingRequestServlet extends HttpServlet {
 
         resp.getWriter().write(JsonUtil.mapToJson(map));
     }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String id = req.getParameter("id");
+
+        PairingRequestService pairingRequestService = ServiceFactory.getPairingRequestService();
+        boolean status = pairingRequestService.removePairingRequest(id);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("status", status);
+
+        resp.getWriter().write(JsonUtil.mapToJson(map));
+    }
 }

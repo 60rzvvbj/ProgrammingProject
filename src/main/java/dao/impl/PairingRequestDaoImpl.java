@@ -54,7 +54,8 @@ public class PairingRequestDaoImpl implements PairingRequestDao {
         boolean res;
         try {
             connection = JDBCUtil.getConnection();
-            String sql = "delete from friendreq where id = ?";
+            String sql = "delete from pairingreq where id = ?";
+            preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, pairingRequestId);
             int i = preparedStatement.executeUpdate();
             res = i > 0;

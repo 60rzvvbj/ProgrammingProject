@@ -104,6 +104,7 @@ public class PairingRequestServiceCHTImpl implements PairingRequestService {
                 if (u) {
                     pairingRequestList.remove(i);
                 }
+                return u;
             }
         }
         return false;

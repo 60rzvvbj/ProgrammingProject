@@ -13,7 +13,8 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        UserService userService = ServiceFactory.getUserService();
-        System.out.println(userService.queryFriendList("191543132", null));
+        PairingRequestService pairingRequestService = ServiceFactory.getPairingRequestService();
+        System.out.println(pairingRequestService.queryUserPairing("19543132", "exclude", "陈"));
     }
+
 }

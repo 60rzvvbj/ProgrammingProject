@@ -137,9 +137,10 @@ public class UserServiceImpl implements UserService {
             if (i.getStudentNumber().equals(studentNumber)) {
                 List<String> stringList = i.getFriendList();    //获取好友列表
                 for (User k : list) {   //遍历所有的用户
+                    if(i.getStudentNumber().equals(k.getStudentNumber())) continue;
                     int flag = 0;
                     if (message != null) {
-                        if (k.getStudentNumber().equals(message) || AlgorithmUtil.KMP(message, k.getUsername()) || message.equals("")) {
+                        if (k.getStudentNumber().equals(message) || message.equals("") || AlgorithmUtil.KMP(message, k.getUsername())) {
                             flag = 1;
                         }
                     }
