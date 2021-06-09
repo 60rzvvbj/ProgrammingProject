@@ -89,6 +89,14 @@ public class PairingRequestServiceCHTImpl implements PairingRequestService {
                     if (i.getStudentNumber().equals(search)) {    //如果查询的内容是一个学号，就把这个学号发的配对加进去
                         excludeList.add(i);
                     }
+                    for(User j : userList){
+                        if(j.getStudentNumber().equals(i.getStudentNumber())){
+                            if(AlgorithmUtil.KMP(search, j.getUsername())){
+                                excludeList.add(i);
+                            }
+                            break;
+                        }
+                    }
                 }
             }
             return excludeList;
