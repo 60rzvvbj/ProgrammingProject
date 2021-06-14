@@ -10,7 +10,7 @@ package pojo;
  */
 
 
-public class PairingRequest {
+public class PairingRequest implements Comparable<PairingRequest> {
     private String studentNumber;   //创建对象时传递进来
     private String request; //通过用户输入获取
     private long startTime; //用户输入配对请求之后，就获取当前时间
@@ -84,5 +84,9 @@ public class PairingRequest {
                 "startTime='" + startTime + '\'' +
                 "recipientNumber ='" + recipientNumber + '\'' + " ID='" + ID + '\'' +
                 '}';
+    }
+
+    public int compareTo(PairingRequest pairingRequest) {
+        return this.ID.compareTo(pairingRequest.ID);
     }
 }

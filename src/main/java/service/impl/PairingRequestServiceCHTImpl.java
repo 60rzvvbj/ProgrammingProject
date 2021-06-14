@@ -12,9 +12,7 @@ import service.FriendRequestService;
 import service.PairingRequestService;
 import util.AlgorithmUtil;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class PairingRequestServiceCHTImpl implements PairingRequestService {
     private final PairingRequestDao pairingRequestDao;
@@ -31,13 +29,11 @@ public class PairingRequestServiceCHTImpl implements PairingRequestService {
 
     @Override
     public PairingRequest addPairingRequest(String studentNumber, Map<String, Object> data) {   //添加配对请求
-        int flag = 0;
-        for (User i : userList) {
-            if (i.getStudentNumber().equals(studentNumber)) {
-                flag = 1;
-            }
-        }
-        if (flag == 0) {
+        System.out.println("123");
+        User u = new User();
+        u.setStudentNumber(studentNumber);
+        int index = AlgorithmUtil.binarySearch(userList, u);
+        if (index == -1) {
             PairingRequest pairingRequest = new PairingRequest();
             pairingRequest.setID("学号不存在");
             return pairingRequest;
@@ -51,7 +47,9 @@ public class PairingRequestServiceCHTImpl implements PairingRequestService {
         pairingRequest.setStatus(0);
         String ID = pairingRequestDao.addPairingRequest(pairingRequest);
         pairingRequest.setID(ID);
-        pairingRequestList.add(pairingRequest);
+        int indexx = AlgorithmUtil.bisectionInsert(pairingRequestList, pairingRequest);
+        pairingRequestList.add(indexx, pairingRequest);
+//        pairingRequestList.add(pairingRequest);
         return pairingRequest;
     }
 
@@ -77,6 +75,10 @@ public class PairingRequestServiceCHTImpl implements PairingRequestService {
                     }
                 }
             }
+            Set<PairingRequest> p = new HashSet<>();    //去重
+            p.addAll(includeList);
+            includeList.clear();
+            includeList.addAll(p);
             return includeList;
         } else if (type.equals("exclude")) {    //别人发的配对请求
             for (PairingRequest i : pairingRequestList) {
@@ -91,16 +93,21 @@ public class PairingRequestServiceCHTImpl implements PairingRequestService {
                     if (i.getStudentNumber().equals(search)) {    //如果查询的内容是一个学号，就把这个学号发的配对加进去
                         excludeList.add(i);
                     }
-                    for(User j : userList){
-                        if(j.getStudentNumber().equals(i.getStudentNumber())){
-                            if(AlgorithmUtil.KMP(search, j.getUsername())){
-                                excludeList.add(i);
-                            }
-                            break;
+                    User u = new User();    //修改
+                    u.setStudentNumber(i.getStudentNumber());
+                    int index = AlgorithmUtil.binarySearch(userList, u);
+                    if (index != -1) {
+                        User j = userList.get(index);
+                        if (AlgorithmUtil.KMP(search, j.getUsername())) {
+                            excludeList.add(i);
                         }
                     }
                 }
             }
+            Set<PairingRequest> q = new HashSet<>();    //去重
+            q.addAll(excludeList);
+            excludeList.clear();
+            excludeList.addAll(q);
             return excludeList;
         }
         return null;
@@ -108,43 +115,47 @@ public class PairingRequestServiceCHTImpl implements PairingRequestService {
 
     @Override
     public boolean removePairingRequest(String ID) {    //在数据库移除配对请求
-        for (PairingRequest i : pairingRequestList) {
-            if (i.getID().equals(ID)) {
-                boolean u = pairingRequestDao.removePairingRequestByID(ID);
-                if (u) {
-                    pairingRequestList.remove(i);
-                }
-                return u;
+        PairingRequest u = new PairingRequest();
+        u.setID(ID);
+        int index = AlgorithmUtil.binarySearch(pairingRequestList, u);
+        if (index != -1) {
+            PairingRequest i = pairingRequestList.get(index);
+            boolean t = pairingRequestDao.removePairingRequestByID(ID);
+            if (t) {
+                pairingRequestList.remove(i);
             }
+            return t;
         }
         return false;
     }
 
     @Override
     public boolean acceptPairing(String acceptNumber, String ID) throws Exception {  //某用户接受别人的配对请求，在数据库更新特定配对请求的接受人信息
-        for (PairingRequest i : pairingRequestList) {
-            if (i.getID().equals(ID)) {
-                for (User j : userList) {
-                    if (j.getStudentNumber().equals(i.getStudentNumber())) {
-                        List<String> friendList = j.getFriendList();
-                        for (String k : friendList) {
-                            if (k.equals(acceptNumber)) {
-                                throw new Exception("你们两个人已经是好友了");
-                            }
+        PairingRequest u = new PairingRequest();
+        u.setID(ID);
+        int index = AlgorithmUtil.binarySearch(pairingRequestList, u);
+        if (index != -1) {
+            PairingRequest i = pairingRequestList.get(index);
+            for (User j : userList) {
+                if (j.getStudentNumber().equals(i.getStudentNumber())) {
+                    List<String> friendList = j.getFriendList();
+                    for (String k : friendList) {
+                        if (k.equals(acceptNumber)) {
+                            throw new Exception("你们两个人已经是好友了");
                         }
                     }
                 }
-                if (i.getStatus() == 1) {
-                    return false;
-                }
-                String studentNumber = i.getStudentNumber();
-                i.setStatus(1);
-                i.setRecipientNumber(acceptNumber);
-                pairingRequestDao.modifyPairingRequest(i);
-                FriendRequestService friendRequestService = ServiceFactory.getFriendRequestService();
-                friendRequestService.addFriend(acceptNumber, studentNumber);
-                return true;
             }
+            if (i.getStatus() == 1) {
+                return false;
+            }
+            String studentNumber = i.getStudentNumber();
+            i.setStatus(1);
+            i.setRecipientNumber(acceptNumber);
+            pairingRequestDao.modifyPairingRequest(i);
+            FriendRequestService friendRequestService = ServiceFactory.getFriendRequestService();
+            friendRequestService.addFriend(acceptNumber, studentNumber);
+            return true;
         }
         return false;
     }

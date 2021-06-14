@@ -32,15 +32,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean register(String studentNumber, String password, String username) { //注册
-        User user = new User();
         if (studentNumber == null || password == null || username == null) {
             return false;
         }
-        for (User i : list) {
-            if (studentNumber.equals(i.getStudentNumber())) {
-                return false;
-            }
+        User u = new User();
+        u.setStudentNumber(studentNumber);
+        int index = AlgorithmUtil.binarySearch(list, u);
+        if (index != -1) {
+            return false;
         }
+        User user = new User();
         user.setStudentNumber(studentNumber);
         user.setPassword(password);
         user.setUsername(username);
@@ -49,15 +50,25 @@ public class UserServiceImpl implements UserService {
         user.setPersonalProfile(User.DEFAULT_PERSONAL_PROFILE);
         user.setContactInformation(User.DEFAULT_CONTACT_INFORMATION);
         user.setFriendList(new LinkedList<>());
-        list.add(user);
+        //list.add(user);
+        int indexx = AlgorithmUtil.bisectionInsert(list, user);
+        list.add(indexx, user);
         userDao.addUser(user);
         return true;
     }
 
     @Override
     public boolean login(String studentNumber, String password) { //登录
-        for (User i : list) {
-            if (studentNumber.equals(i.getStudentNumber()) && password.equals(i.getPassword())) {
+//        for (User i : list) {
+//            if (studentNumber.equals(i.getStudentNumber()) && password.equals(i.getPassword())) {
+//                return true;
+//            }
+//        }
+        User u = new User();
+        u.setStudentNumber(studentNumber);
+        int index = AlgorithmUtil.binarySearch(list, u);
+        if (index != -1) {
+            if (list.get(index).getPassword().equals(password)) {
                 return true;
             }
         }
@@ -66,10 +77,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean changePassword(String studentNumber, String oldPassword, String newPassword) { //修改密码
-        for (User i : list) {
-            if (studentNumber.equals(i.getStudentNumber()) && oldPassword.equals(i.getPassword())) {
-                i.setPassword(newPassword);
-                userDao.modifyUser(i);
+        User u = new User();
+        u.setStudentNumber(studentNumber);
+        int index = AlgorithmUtil.binarySearch(list, u);
+        if (index != -1) {
+            if (oldPassword.equals(list.get(index).getPassword())) {
+                list.get(index).setPassword(newPassword);
+                userDao.modifyUser(list.get(index));
                 return true;
             }
         }
@@ -78,36 +92,39 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean editInformation(String studentNumber, Map<String, Object> map) { //编辑个人信息
-        for (User i : list) {
-            if (studentNumber.equals(i.getStudentNumber())) {
-                i.setUsername((String) map.get("username"));
-                i.setSex((String) map.get("sex"));
-                i.setAge(Integer.parseInt((String) map.get("age")));
-                i.setHeight(Double.parseDouble((String) map.get("height")));
-                i.setWeight(Double.parseDouble((String) map.get("weight")));
-                if (map.get("personalProfile") == null || map.get("personalProfile").equals("")) {
-                    i.setPersonalProfile(User.DEFAULT_PERSONAL_PROFILE);
-                } else {
-                    i.setPersonalProfile((String) map.get("personalProfile"));
-                }
-                if (map.get("contactInformation") == null || map.get("contactInformation").equals("")) {
-                    i.setContactInformation(User.DEFAULT_CONTACT_INFORMATION);
-                } else {
-                    i.setContactInformation((String) map.get("contactInformation"));
-                }
-                userDao.modifyUser(i);
-                return true;
+        User u = new User();
+        u.setStudentNumber(studentNumber);
+        int index = AlgorithmUtil.binarySearch(list, u);
+        if (index != -1) {
+            User i = list.get(index);
+            i.setUsername((String) map.get("username"));
+            i.setSex((String) map.get("sex"));
+            i.setAge(Integer.parseInt((String) map.get("age")));
+            i.setHeight(Double.parseDouble((String) map.get("height")));
+            i.setWeight(Double.parseDouble((String) map.get("weight")));
+            if (map.get("personalProfile") == null || map.get("personalProfile").equals("")) {
+                i.setPersonalProfile(User.DEFAULT_PERSONAL_PROFILE);
+            } else {
+                i.setPersonalProfile((String) map.get("personalProfile"));
             }
+            if (map.get("contactInformation") == null || map.get("contactInformation").equals("")) {
+                i.setContactInformation(User.DEFAULT_CONTACT_INFORMATION);
+            } else {
+                i.setContactInformation((String) map.get("contactInformation"));
+            }
+            userDao.modifyUser(i);
+            return true;
         }
         return false;
     }
 
     @Override
     public User queryUserByStudentNumber(String studentNumber) {
-        for (User i : list) {
-            if (i.getStudentNumber().equals(studentNumber)) {
-                return i;
-            }
+        User u = new User();
+        u.setStudentNumber(studentNumber);
+        int index = AlgorithmUtil.binarySearch(list, u);
+        if (index != -1) {
+            return list.get(index);
         }
         return null;
     }
@@ -133,33 +150,34 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> queryFriendList(String studentNumber, String message) { //查询某用户的好友列表
         List<User> userList = new LinkedList<>();
-        for (User i : list) {
-            if (i.getStudentNumber().equals(studentNumber)) {
-                List<String> stringList = i.getFriendList();    //获取好友列表
-                for (User k : list) {   //遍历所有的用户
-                    if(i.getStudentNumber().equals(k.getStudentNumber())) continue;
-                    int flag = 0;
-                    if (message != null) {
-                        if (k.getStudentNumber().equals(message) || message.equals("") || AlgorithmUtil.KMP(message, k.getUsername())) {
-                            flag = 1;
-                        }
-                    }
-                    for (String j : stringList) {
-                        if (message == null && k.getStudentNumber().equals(j)) {    //如果传入的是空，就找他所有的好友
-                            userList.add(k);
-                            break;
-                        }
-                        else if (flag == 1 && k.getStudentNumber().equals(j)) {
-                            flag = 0;
-                            break;
-                        }
-                    }
-                    if (flag == 1) {
-                        userList.add(k);
+        User u = new User();
+        u.setStudentNumber(studentNumber);
+        int index = AlgorithmUtil.binarySearch(list, u);
+        if (index != -1) {
+            User i = list.get(index);
+            List<String> stringList = i.getFriendList();    //获取好友列表
+            for (User k : list) {   //遍历所有的用户
+                if (i.getStudentNumber().equals(k.getStudentNumber())) continue;
+                int flag = 0;
+                if (message != null) {
+                    if (k.getStudentNumber().equals(message) || message.equals("") || AlgorithmUtil.KMP(message, k.getUsername())) {
+                        flag = 1;
                     }
                 }
-                return userList;
+                for (String j : stringList) {
+                    if (message == null && k.getStudentNumber().equals(j)) {    //如果传入的是空，就找他所有的好友
+                        userList.add(k);
+                        break;
+                    } else if (flag == 1 && k.getStudentNumber().equals(j)) {
+                        flag = 0;
+                        break;
+                    }
+                }
+                if (flag == 1) {
+                    userList.add(k);
+                }
             }
+            return userList;
         }
         return null;
     }

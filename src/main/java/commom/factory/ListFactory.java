@@ -4,6 +4,7 @@ import pojo.Feedback;
 import pojo.FriendRequest;
 import pojo.PairingRequest;
 import pojo.User;
+import util.AlgorithmUtil;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class ListFactory {
 
     static {
         userList = DaoFactory.getUserDao().queryAllUser();
+        AlgorithmUtil.quickSort(userList);
         feedbackList = DaoFactory.getFeedbackDao().queryAllFeedback();
         friendRequestList = DaoFactory.getFriendRequestDao().queryAllFriendRequest();
         pairingRequestList = DaoFactory.getPairingRequestDao().queryAllPairingRequest();
