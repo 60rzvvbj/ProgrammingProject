@@ -19,7 +19,9 @@ public class ListFactory {
         AlgorithmUtil.quickSort(userList);
         feedbackList = DaoFactory.getFeedbackDao().queryAllFeedback();
         friendRequestList = DaoFactory.getFriendRequestDao().queryAllFriendRequest();
+        AlgorithmUtil.heapSort(friendRequestList);
         pairingRequestList = DaoFactory.getPairingRequestDao().queryAllPairingRequest();
+        AlgorithmUtil.mergeSort(pairingRequestList);
     }
 
     public static List<User> getUserList() {

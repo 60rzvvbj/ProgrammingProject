@@ -8,7 +8,7 @@ package pojo;
  * @date 2021/5/22
  */
 
-public class FriendRequest {
+public class FriendRequest implements Comparable<FriendRequest> {
     private String requested; //被请求人学号
     private String applicant; //请求人学号
     private long time; //发起请求时间
@@ -71,5 +71,11 @@ public class FriendRequest {
                 ", time=" + time +
                 ", status=" + status +
                 '}';
+    }
+
+
+    @Override
+    public int compareTo(FriendRequest friendRequest) {
+        return -this.requestID.compareTo(friendRequest.requestID);
     }
 }

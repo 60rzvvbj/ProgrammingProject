@@ -9,6 +9,7 @@ import pojo.FriendRequest;
 import pojo.PairingRequest;
 import pojo.User;
 import service.InformationService;
+import util.AlgorithmUtil;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -69,25 +70,29 @@ public class InformationServiceImpl implements InformationService {
     @Override
     public boolean removeInformationService(String ID, String type) {
         if (type.equals("FriendRequest")) {
-            for (FriendRequest i : friendRequestList) {
-                if (i.getRequestID().equals(ID)) {
-                    boolean u = friendRequestDao.removeFriendRequest(i);
-                    if (u) {
-                        friendRequestList.remove(i);
-                    }
-                    return u;
+            FriendRequest u = new FriendRequest();
+            u.setRequestID(ID);
+            int index = AlgorithmUtil.binarySearch(friendRequestList, u);
+            if (index != -1) {
+                FriendRequest i = friendRequestList.get(index);
+                boolean p = friendRequestDao.removeFriendRequest(i);
+                if (p) {
+                    friendRequestList.remove(i);
                 }
+                return p;
             }
         }
         if (type.equals("PairingRequest")) {
-            for (PairingRequest i : pairingRequestList) {
-                if (i.getID().equals(ID)) {
-                    boolean u = pairingRequestDao.removePairingRequestByID(ID);
-                    if (u) {
-                        pairingRequestList.remove(i);
-                    }
-                    return u;
+            PairingRequest u = new PairingRequest();
+            u.setID(ID);
+            int index = AlgorithmUtil.binarySearch(pairingRequestList, u);
+            if (index != -1) {
+                PairingRequest i = pairingRequestList.get(index);
+                boolean p = pairingRequestDao.removePairingRequestByID(ID);
+                if (p) {
+                    pairingRequestList.remove(i);
                 }
+                return p;
             }
         }
         return false;

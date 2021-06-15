@@ -1,10 +1,11 @@
 package util;
 
+import pojo.FriendRequest;
 import pojo.PairingRequest;
 import pojo.User;
 
-import java.util.LinkedList;
 import java.util.List;
+import java.util.PriorityQueue;
 
 public class AlgorithmUtil {
 
@@ -102,13 +103,14 @@ public class AlgorithmUtil {
         }
     }
 
-    public static void mergeSort(Comparable[] arr) {
+    private static void mergeSort(Comparable[] arr) {
         if (arr == null || arr.length < 2) {
             return;
         }
         process(arr, 0, arr.length - 1);
     }
-    public static void process(Comparable[] arr, int L, int R) {
+
+    private static void process(Comparable[] arr, int L, int R) {
         if (L == R) {
             return;
         }
@@ -117,7 +119,8 @@ public class AlgorithmUtil {
         process(arr, mid + 1, R);
         merge(arr, L, mid, R);
     }
-    public static void merge(Comparable[] arr, int L, int M, int R) {
+
+    private static void merge(Comparable[] arr, int L, int M, int R) {
         Comparable[] help = new Comparable[R - L + 1];
         int i = 0;
         int p1 = L;
@@ -136,7 +139,7 @@ public class AlgorithmUtil {
         }
     }
 
-    public static int binarySearch(List<? extends Comparable> list, Comparable value){  //二分查找
+    public static int binarySearch(List<? extends Comparable> list, Comparable value) {  //二分查找
         int low = 0;
         int high = list.size() - 1;
         while (low <= high) {
@@ -152,22 +155,42 @@ public class AlgorithmUtil {
         return -1;
     }
 
-    public static int bisectionInsert(List<? extends Comparable> list, Comparable value){   //二分查找最小下标
+    public static int bisectionInsert(List<? extends Comparable> list, Comparable value) {   //二分查找最小下标
         int middle = 0;
         int low = 0;
         int high = list.size() - 1;
         while (low <= high) {
-             middle = (high + low) / 2;
-             if (list.get(middle).compareTo(value) < 0) {
+            middle = (high + low) / 2;
+            if (list.get(middle).compareTo(value) < 0) {
                 low = middle + 1;
             } else {
                 high = middle - 1;
             }
         }
-        if(middle == high){
+        if (middle == high) {
             return list.size();
         }
         return low;
     }
 
+    //堆排序
+
+    public static void heapSort(List<FriendRequest> friendRequestList) {
+        FriendRequest[] friendRequests = friendRequestList.toArray(new FriendRequest[0]);
+        heapSort(friendRequests);
+        friendRequestList.clear();
+        for (FriendRequest i : friendRequests) {
+            friendRequestList.add(i);
+        }
+    }
+
+    private static void heapSort(Comparable[] arr) {
+        PriorityQueue<Comparable> heap = new PriorityQueue<>();
+        for (int i = 0; i < arr.length; i++) {
+            heap.offer(arr[i]);
+        }
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = heap.poll();
+        }
+    }
 }

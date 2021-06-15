@@ -29,7 +29,6 @@ public class PairingRequestServiceCHTImpl implements PairingRequestService {
 
     @Override
     public PairingRequest addPairingRequest(String studentNumber, Map<String, Object> data) {   //添加配对请求
-        System.out.println("123");
         User u = new User();
         u.setStudentNumber(studentNumber);
         int index = AlgorithmUtil.binarySearch(userList, u);

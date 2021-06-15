@@ -87,6 +87,6 @@ public class PairingRequest implements Comparable<PairingRequest> {
     }
 
     public int compareTo(PairingRequest pairingRequest) {
-        return this.ID.compareTo(pairingRequest.ID);
+        return -this.ID.compareTo(pairingRequest.ID);
     }
 }
