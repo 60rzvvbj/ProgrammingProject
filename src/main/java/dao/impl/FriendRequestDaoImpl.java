@@ -1,9 +1,7 @@
 package dao.impl;
 
 import dao.FriendRequestDao;
-import pojo.Feedback;
 import pojo.FriendRequest;
-import pojo.User;
 import util.JDBCUtil;
 
 import java.sql.Connection;
