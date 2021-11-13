@@ -7,6 +7,7 @@ import service.PairingRequestService;
 import service.UserService;
 import service.impl.PairingRequestServiceImpl;
 import service.impl.UserServiceImpl;
+import util.AlgorithmUtil;
 import util.JsonUtil;
 
 import javax.servlet.ServletException;
@@ -40,6 +41,8 @@ public class PairingListServlet extends HttpServlet {
         } else {
             list = pairingRequestService.queryUserPairing(sno, type, search);
         }
+
+        AlgorithmUtil.mergeSort(list);
 
         Map<String, Object> map = new HashMap<>();
         List<Object> res = new LinkedList<>();

@@ -1,29 +1,22 @@
-import commom.factory.DaoFactory;
-import commom.factory.ListFactory;
 import commom.factory.ServiceFactory;
-import dao.AdministratorDao;
-import dao.UserDao;
-import dao.impl.UserDaoImpl;
-import pojo.FriendRequest;
-import pojo.PairingRequest;
-import pojo.User;
 import service.FriendRequestService;
-import service.InformationService;
 import service.PairingRequestService;
 import service.UserService;
-import util.JsonUtil;
-
-import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        FriendRequestService friendRequestService = ServiceFactory.getFriendRequestService();
-        PairingRequestService pairingRequestService = ServiceFactory.getPairingRequestService();
         UserService userService = ServiceFactory.getUserService();
-        List<FriendRequest> friendRequestList = ListFactory.getFriendRequestList();
-        List<PairingRequest> pairingRequestList = ListFactory.getPairingRequestList();
-        for(FriendRequest i : friendRequestList){
-            System.out.println(i.getRequestID());
-        }
+        System.out.println(userService.queryUserByStudentNumber("191543110"));
+        System.out.println(userService.queryFriendList("191543110", ""));
+        System.out.println(userService.queryUser(""));
+        userService.login("191543110", "1234");
+        System.out.println("===========================");
+
+        FriendRequestService friendRequestService = ServiceFactory.getFriendRequestService();
+        System.out.println(friendRequestService.queryRequest("191543110"));
+        System.out.println("===========================");
+
+        PairingRequestService pairingRequestService = ServiceFactory.getPairingRequestService();
+        System.out.println(pairingRequestService.queryPairingRequest());
     }
 }

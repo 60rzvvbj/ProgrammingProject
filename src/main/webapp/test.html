@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/login" method="post">
+    <input name="sno">
+    <input name="pwd">
+    <input type="submit">
+</form>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    var ins = axios.create();
+    ins({
+        url: '/login',
+        method: 'POST',
+        params: {
+            sno: 123,
+            pwd: '456'
+        }
+    });
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/login");
+    // xhr.setRequestHeader("contentType", "application/json");
+
+    // var data = new FormData();
+    // data.append("sno", 123);
+    // data.append("pwd", "456");
+
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("sno=123&pwd=456");
+    xhr.onload = function () {
+        console.log(xhr.responseText);
+    }
+</script>
+</body>
+</html>

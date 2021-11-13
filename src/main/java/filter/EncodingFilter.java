@@ -22,7 +22,7 @@ public class EncodingFilter implements Filter {
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
 
         String uri = req.getRequestURI();
-        if (uri.equals("/") || uri.startsWith("/static/") || uri.equals("/favicon.ico")) {
+        if (uri.equals("/") || uri.startsWith("/static/") || uri.equals("/favicon.ico") || uri.equals("/test.html")) {
             filterChain.doFilter(servletRequest, resp);
         } else {
             // 接口设置json头

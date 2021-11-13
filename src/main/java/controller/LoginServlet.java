@@ -24,6 +24,9 @@ public class LoginServlet extends HttpServlet {
         String sno = req.getParameter("sno");
         String pwd = req.getParameter("pwd");
 
+        System.out.println(sno);
+        System.out.println(pwd);
+
         boolean status = userService.login(sno, pwd);
 
         Map<String, Object> data = new HashMap<>();
